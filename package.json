@@ -13,6 +13,7 @@
     "@apollo/react-hooks": "^4.0.0",
     "@monterosa/react-native-parallax-scroll": "^1.8.0",
     "@react-native-community/async-storage": "^1.11.0",
+    "@react-native-community/google-signin": "^4.0.3",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/drawer": "^5.8.7",
     "@react-navigation/stack": "^5.8.0",

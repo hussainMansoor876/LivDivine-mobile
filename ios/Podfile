@@ -8,6 +8,7 @@ target 'LivDivine' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+
   target 'LivDivineTests' do
     inherit! :complete
     # Pods for testing
