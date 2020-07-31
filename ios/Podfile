@@ -9,6 +9,8 @@ target 'LivDivine' do
   use_react_native!(:path => config["reactNativePath"])
 
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'LivDivineTests' do
     inherit! :complete
     # Pods for testing
