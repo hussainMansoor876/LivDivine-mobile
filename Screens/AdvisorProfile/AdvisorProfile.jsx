@@ -69,7 +69,10 @@ const AdvisorProfile = (props) => {
                             source={{ uri: 'https://res.cloudinary.com/dhspait8a/image/upload/v1595100989/cwbwopm3ys9hpkjaajw1.jpg' }}
                             style={AdvisorStyles.profileImage}
                         />
-                        <Text>Mansoor</Text>
+                        <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', letterSpacing: 1.5 }}>Mansoor</Text>
+                            <Text>TITLE</Text>
+                        </View>
                     </View>
                 </ScrollView>}
         </SafeAreaView>

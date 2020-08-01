@@ -199,8 +199,8 @@ const AdvisorStyles = StyleSheet.create({
         marginLeft: -5
     },
     profileImage: {
-        width: 60,
-        height: 60,
+        width: 65,
+        height: 65,
         marginRight: 10,
         borderRadius: 50,
     },

@@ -3,10 +3,11 @@ import { StyleSheet, Text } from 'react-native';
 import { Provider } from "react-redux";
 import { store, persistor } from "./Redux/store";
 import { PersistGate } from 'redux-persist/integration/react'
-import AppNavigator from './Navigation'
+// import AppNavigator from './Navigation'
 import SplashScreen from 'react-native-splash-screen'
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './Config/apollo'
+import { AdvisorProfile } from './Screens'
 
 const App = () => {
 
@@ -19,7 +20,8 @@ const App = () => {
     <Provider store={store} >
       <PersistGate persistor={persistor}>
         <ApolloProvider client={client}>
-          <AppNavigator />
+          {/* <AppNavigator /> */}
+          <AdvisorProfile />
         </ApolloProvider>
       </PersistGate>
     </Provider>
