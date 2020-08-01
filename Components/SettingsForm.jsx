@@ -9,7 +9,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { UPDATE_USER } from '../utils/authQueries'
 import FontIcon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-crop-picker';
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob'
 
 const SettingsForm = (props) => {
     const user = useSelector(state => state.authReducer.user);

@@ -19,7 +19,7 @@ import Screen from '../utils/ScreenDimensions'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { customStyles, labels, videoOptions, orderTypes } from '../utils/constant'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob'
 import { ScrollView } from 'react-native-gesture-handler';
 
 

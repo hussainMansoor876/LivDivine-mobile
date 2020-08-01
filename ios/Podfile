@@ -13,6 +13,8 @@ target 'LivDivine' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'LivDivineTests' do
     inherit! :complete
     # Pods for testing
