@@ -79,7 +79,7 @@ const AdvisorProfile = (props) => {
                             <Text style={AdvisorStyles.orderText}>Video Reading</Text>
                             <Text style={AdvisorStyles.titleColor}>Recorded and delivered within 24 hours</Text>
                         </View>
-                        <Button title="Order" />
+                        <Button title="Order $10" containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: '#32CD32' }} />
                     </View>
                 </ScrollView>}
         </SafeAreaView>

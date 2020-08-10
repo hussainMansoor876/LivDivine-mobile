@@ -249,7 +249,8 @@ const AdvisorStyles = StyleSheet.create({
         letterSpacing: 1.5
     },
     titleColor: {
-        color: 'rgba(0, 0, 0, 0.5)'
+        color: 'rgba(0, 0, 0, 0.5)',
+        fontSize: 13
     }
 })
 
