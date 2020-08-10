@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, Text, Button, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { LoginForm, SocialLogin, SettingsForm, ChangePassword } from '../../Components'
 import { loginStyles, AdvisorStyles } from '../../styles'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { Icon } from 'react-native-elements'
+import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
 
@@ -64,15 +64,22 @@ const AdvisorProfile = (props) => {
                     <TouchableOpacity onPress={() => setShowVideo(true)} style={AdvisorStyles.playButton}>
                         <MaterialIcon style={{ color: '#fff' }} name="play-arrow" size={42} />
                     </TouchableOpacity>
-                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile }}>
+                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingBottom: 20 }}>
                         <Image
                             source={{ uri: 'https://res.cloudinary.com/dhspait8a/image/upload/v1595100989/cwbwopm3ys9hpkjaajw1.jpg' }}
                             style={AdvisorStyles.profileImage}
                         />
-                        <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold', letterSpacing: 1.5 }}>Mansoor</Text>
+                        <View style={AdvisorStyles.orderView}>
+                            <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>Mansoor</Text>
                             <Text>TITLE</Text>
                         </View>
+                    </View>
+                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between' }}>
+                        <View style={AdvisorStyles.orderView}>
+                            <Text style={AdvisorStyles.orderText}>Video Reading</Text>
+                            <Text style={AdvisorStyles.titleColor}>Recorded and delivered within 24 hours</Text>
+                        </View>
+                        <Button title="Order" />
                     </View>
                 </ScrollView>}
         </SafeAreaView>

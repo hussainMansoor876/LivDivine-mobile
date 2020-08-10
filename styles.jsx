@@ -209,8 +209,8 @@ const AdvisorStyles = StyleSheet.create({
         flexDirection: 'row'
     },
     viewProfile: {
-        marginRight: 10,
-        marginLeft: 10,
+        paddingRight: 10,
+        paddingLeft: 10,
         marginTop: 10
     },
     ActivityIndicatorStyle: {
@@ -239,6 +239,17 @@ const AdvisorStyles = StyleSheet.create({
         position: 'absolute',
         width: 60,
         height: 60
+    },
+    orderView: {
+        flexDirection: 'column',
+        justifyContent: 'space-around'
+    },
+    orderText: {
+        fontSize: 16,
+        letterSpacing: 1.5
+    },
+    titleColor: {
+        color: 'rgba(0, 0, 0, 0.5)'
     }
 })
 
