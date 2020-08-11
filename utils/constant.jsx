@@ -68,27 +68,32 @@ const orderTypes = [
     {
         title: 'Video reading',
         subtitle: 'Recorded & delivered within 24 hours',
-        price: '$10'
+        price: '$10',
+        orderPrice: 'Order $10'
     },
     {
         title: 'Rush video reading',
         subtitle: 'Recorded & delivered within 60 minutes',
-        price: '$15'
+        price: '$15',
+        orderPrice: 'Order $15'
     },
     {
         title: 'Live chat',
         subtitle: 'Live caht reading - right now',
-        price: '$0.99/min'
+        price: '$0.99/min',
+        orderPrice: '$0.99/min'
     },
     {
         title: 'Live video call',
         subtitle: 'Live video reading - right now',
-        price: '$3.99/min'
+        price: '$3.99/min',
+        orderPrice: '$3.99/min'
     },
     {
         title: 'Live audio call',
         subtitle: 'Live audio reading - right now',
-        price: '$1.99/min'
+        price: '$1.99/min',
+        orderPrice: '$1.99/min'
     }
 ]
 

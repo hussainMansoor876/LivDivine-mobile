@@ -8,6 +8,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
+import { orderTypes } from '../../utils/constant'
 
 
 const AdvisorProfile = (props) => {
@@ -74,12 +75,19 @@ const AdvisorProfile = (props) => {
                             <Text>TITLE</Text>
                         </View>
                     </View>
+                    {orderTypes.map((v, i) => {
+                        return (
+                            <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
+                                <View style={AdvisorStyles.orderView}>
+                                    <Text style={AdvisorStyles.orderText}>{v.title}</Text>
+                                    <Text style={AdvisorStyles.titleColor}>{v.subtitle}</Text>
+                                </View>
+                                <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: '#32CD32' }} />
+                            </View>
+                        )
+                    })}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between' }}>
-                        <View style={AdvisorStyles.orderView}>
-                            <Text style={AdvisorStyles.orderText}>Video Reading</Text>
-                            <Text style={AdvisorStyles.titleColor}>Recorded and delivered within 24 hours</Text>
-                        </View>
-                        <Button title="Order $10" containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: '#32CD32' }} />
+                        <Text>Hello</Text>
                     </View>
                 </ScrollView>}
         </SafeAreaView>
