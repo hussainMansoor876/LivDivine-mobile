@@ -48,7 +48,7 @@ const AdvisorProfile = (props) => {
                     />
                 </View> : null}
                 <Video
-                    source={{ uri: user.video }}
+                    source={{ uri: 'https://res.cloudinary.com/dzkbtggax/video/upload/v1595798886/zyomzszkxsban4sgu1yo.mp4' }}
                     style={{ marginTop: Screen.height / 4, height: Screen.height / 2, width: Screen.width }}
                     controls
                     resizeMode="stretch"
