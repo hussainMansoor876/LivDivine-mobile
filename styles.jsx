@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native'
 import Screen from './utils/ScreenDimensions'
+import { appColor } from './utils/constant'
 
 const loginStyles = StyleSheet.create({
     setFlex: {
@@ -257,6 +258,15 @@ const AdvisorStyles = StyleSheet.create({
     titleColor: {
         color: 'rgba(0, 0, 0, 0.5)',
         fontSize: 13
+    },
+    headerView: {
+        backgroundColor: appColor,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 15,
+        paddingBottom: 15
     }
 })
 
