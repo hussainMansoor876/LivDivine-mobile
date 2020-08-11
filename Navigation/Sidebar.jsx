@@ -19,7 +19,7 @@ const datas = [
     },
     {
         name: "All advisors",
-        route: "Advisors",
+        route: "AllAdvisors",
         icon: "user",
         bg: "#DA4437"
     },

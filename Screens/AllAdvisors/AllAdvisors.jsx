@@ -8,7 +8,7 @@ import { LoginForm, SocialLogin } from '../../Components'
 import { loginStyles } from '../../styles'
 
 
-const Advisors = (props) => {
+const AllAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
     return (
@@ -20,4 +20,4 @@ const Advisors = (props) => {
     );
 };
 
-export default Advisors;
+export default AllAdvisors;
