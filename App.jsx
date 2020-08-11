@@ -7,7 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import SplashScreen from 'react-native-splash-screen'
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './Config/apollo'
-import { AdvisorProfile } from './Screens'
+import { AllAdvisors } from './Screens'
 
 const App = () => {
 
@@ -21,7 +21,7 @@ const App = () => {
       <PersistGate persistor={persistor}>
         <ApolloProvider client={client}>
           {/* <AppNavigator /> */}
-          <AdvisorProfile />
+          <AllAdvisors />
         </ApolloProvider>
       </PersistGate>
     </Provider>

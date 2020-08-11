@@ -97,10 +97,13 @@ const orderTypes = [
     }
 ]
 
+const appColor = '#FF1493'
+
 export {
     customStyles,
     labels,
     videoOptions,
     categoriesArray,
-    orderTypes
+    orderTypes,
+    appColor
 }
