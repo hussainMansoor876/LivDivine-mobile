@@ -5,10 +5,18 @@ import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { LoginForm, SocialLogin, SettingsForm, ChangePassword } from '../../Components'
 import { loginStyles, AdvisorStyles } from '../../styles'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { Icon, Button } from 'react-native-elements'
-import Video from 'react-native-video';
-import Screen from '../../utils/ScreenDimensions'
-import { appColor } from '../../utils/constant'
+import { Icon, Button, ListItem } from 'react-native-elements'
+
+const list = [
+    {
+        title: 'Appointments',
+        icon: 'av-timer'
+    },
+    {
+        title: 'Trips',
+        icon: 'flight-takeoff'
+    }
+]
 
 
 const AdvisorProfile = (props) => {
@@ -31,12 +39,20 @@ const AdvisorProfile = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <View style={{ ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10, flexDirection: 'row' }}>
-                <View style={AdvisorStyles.orderView}>
-                    <Text style={AdvisorStyles.orderText}>v.title</Text>
-                    <Text style={AdvisorStyles.titleColor}>v.subtitle</Text>
-                </View>
-                <Button title="v.orderPrice" containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
+            <View>
+                {
+                    list.map((item, i) => (
+                        <ListItem
+                            key={i}
+                            title={item.title}
+                            leftIcon={{ name: item.icon }}
+                            bottomDivider
+                            chevron={
+                                <Button title="View Profile" buttonStyle={AdvisorStyles.btnStyle} />
+                            }
+                        />
+                    ))
+                }
             </View>
         </SafeAreaView>
     );

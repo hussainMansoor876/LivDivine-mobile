@@ -267,6 +267,9 @@ const AdvisorStyles = StyleSheet.create({
         paddingRight: 15,
         paddingTop: 15,
         paddingBottom: 15
+    },
+    btnStyle: {
+        backgroundColor: appColor
     }
 })
 
