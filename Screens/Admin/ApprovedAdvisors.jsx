@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { loginStyles, AdvisorStyles } from '../../styles'
 import { Icon, Button, ListItem } from 'react-native-elements'
-import { useQuery } from '@apollo/client';
 import { GET_ADVISORS } from '../../utils/getQueries'
+import client from '../../Config/apollo'
 
 const list = [
     {
@@ -19,25 +19,10 @@ const list = [
 ]
 
 
-const AdvisorProfile = (props) => {
+const ApprovedAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
-    const [currentTime, setCurretTime] = useState(0)
-    const [showVideo, setShowVideo] = useState(false)
-    const { loading, error, data } = useQuery(GET_ADVISORS);
-    console.log(loading)
-
-    const updateLoading = (e) => {
-        if (currentTime === e.currentTime) {
-            setCurretTime(e.currentTime)
-            setLoading(true)
-        }
-        else {
-            setCurretTime(e.currentTime)
-            setLoading(false)
-        }
-    }
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
@@ -60,4 +45,4 @@ const AdvisorProfile = (props) => {
     );
 };
 
-export default AdvisorProfile;
+export default ApprovedAdvisors;
