@@ -7,18 +7,6 @@ import { Icon, Button, ListItem } from 'react-native-elements'
 import { GET_ADVISORS } from '../../utils/getQueries'
 import client from '../../Config/apollo'
 
-const list = [
-    {
-        title: 'Appointments',
-        icon: 'av-timer'
-    },
-    {
-        title: 'Trips',
-        icon: 'flight-takeoff'
-    }
-]
-
-
 const ApprovedAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
@@ -26,7 +14,7 @@ const ApprovedAdvisors = (props) => {
     const [allAdvisors, setAllAdvisors] = useState([])
 
     useEffect(() => {
-        client.query({ variables: {}, query: GET_ADVISORS })
+        client.query({ variables: { userId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: true }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
