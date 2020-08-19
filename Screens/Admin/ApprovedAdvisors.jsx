@@ -6,12 +6,15 @@ import { loginStyles, AdvisorStyles } from '../../styles'
 import { Icon, Button, ListItem } from 'react-native-elements'
 import { GET_ADVISORS } from '../../utils/getQueries'
 import client from '../../Config/apollo'
+import ViewAdvisor from './ViewAdvisor'
 
 const ApprovedAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
     const [allAdvisors, setAllAdvisors] = useState([])
+    const [showAdvisor, setShowAdvisor] = useState(false)
+    const [advisor, setAdvisor] = useState({})
 
     useEffect(() => {
         client.query({ variables: { userId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: true }, query: GET_ADVISORS })
@@ -24,6 +27,17 @@ const ApprovedAdvisors = (props) => {
             })
     })
 
+    const showProfile = (user) => {
+        setAdvisor(user)
+        setShowAdvisor(true)
+    }
+
+    if (showAdvisor) {
+        return (
+            <ViewAdvisor {...props} advisor={advisor} />
+        )
+    }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <View>
@@ -35,7 +49,11 @@ const ApprovedAdvisors = (props) => {
                             leftAvatar={{ source: { uri: item.image } }}
                             bottomDivider
                             chevron={
-                                <Button title="View Profile" buttonStyle={AdvisorStyles.btnStyle} />
+                                <Button
+                                    title="View Profile"
+                                    buttonStyle={AdvisorStyles.btnStyle}
+                                    onPress={() => showProfile(item)}
+                                />
                             }
                         />
                     ))
