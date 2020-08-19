@@ -14,10 +14,11 @@ import { orderTypes, appColor } from '../../utils/constant'
 const ViewAdvisor = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
+    const advisor = props.advisor
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
     const [showVideo, setShowVideo] = useState(false)
-
+    console.log(advisor)
     const updateLoading = (e) => {
         if (currentTime === e.currentTime) {
             setCurretTime(e.currentTime)
@@ -67,12 +68,12 @@ const ViewAdvisor = (props) => {
                     </TouchableOpacity>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingBottom: 20 }}>
                         <Image
-                            source={{ uri: 'https://res.cloudinary.com/dhspait8a/image/upload/v1595100989/cwbwopm3ys9hpkjaajw1.jpg' }}
+                            source={{ uri: advisor.image }}
                             style={AdvisorStyles.profileImage}
                         />
                         <View style={AdvisorStyles.orderView}>
-                            <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>Mansoor</Text>
-                            <Text>TITLE</Text>
+                            <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>{advisor.userName}</Text>
+                            <Text>{advisor.title}</Text>
                         </View>
                     </View>
                     {orderTypes.map((v, i) => {
@@ -88,12 +89,12 @@ const ViewAdvisor = (props) => {
                     })}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT MY SERVICES</Text>
-                        <Text style={AdvisorStyles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <Text style={AdvisorStyles.aboutText}>{advisor.aboutService}
                         </Text>
                     </View>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT ME</Text>
-                        <Text style={AdvisorStyles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <Text style={AdvisorStyles.aboutText}>{advisor.aboutMe}
                         </Text>
                     </View>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>

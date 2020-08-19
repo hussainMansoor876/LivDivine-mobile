@@ -34,7 +34,7 @@ const ApprovedAdvisors = (props) => {
 
     if (showAdvisor) {
         return (
-            <ViewAdvisor {...props} advisor={advisor} />
+            <ViewAdvisor {...props} advisor={advisor} cancelView={() => setShowAdvisor(false)} />
         )
     }
 
