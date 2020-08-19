@@ -44,6 +44,7 @@ const ApprovedAdvisors = (props) => {
                         <ListItem
                             key={i}
                             title={item.userName}
+                            leftAvatar={{ source: { uri: item.image } }}
                             bottomDivider
                             chevron={
                                 <Button title="View Profile" buttonStyle={AdvisorStyles.btnStyle} />
