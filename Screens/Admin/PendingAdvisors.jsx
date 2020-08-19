@@ -36,4 +36,4 @@ const AdvisorProfile = (props) => {
     );
 };
 
-export default Admin;
+export default AdvisorProfile;
