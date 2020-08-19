@@ -12,7 +12,7 @@ export default function App() {
     <SafeAreaView style={{ flex: 1 }}>
       <Button
         title="Logout"
-        buttonStyle={{ backgroundColor: appColor }}
+        buttonStyle={{ backgroundColor: appColor, alignSelf: 'flex-end', margin: 20, width: 120 }}
       />
       <NavigationContainer>
         <Tab.Navigator
