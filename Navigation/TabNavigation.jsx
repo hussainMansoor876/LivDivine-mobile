@@ -5,7 +5,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Button } from 'react-native-elements'
 import { ApprovedAdvisors, PendingAdvisors } from '../Screens/Admin'
 import { appColor } from '../utils/constant'
-import { color } from 'react-native-reanimated';
 const Tab = createMaterialTopTabNavigator();
 
 export default function App() {

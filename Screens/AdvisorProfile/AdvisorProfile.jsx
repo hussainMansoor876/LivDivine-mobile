@@ -8,7 +8,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
-import { orderTypes } from '../../utils/constant'
+import { orderTypes, appColor } from '../../utils/constant'
 
 
 const AdvisorProfile = (props) => {
@@ -82,7 +82,7 @@ const AdvisorProfile = (props) => {
                                     <Text style={AdvisorStyles.orderText}>{v.title}</Text>
                                     <Text style={AdvisorStyles.titleColor}>{v.subtitle}</Text>
                                 </View>
-                                <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: '#32CD32' }} />
+                                <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
                             </View>
                         )
                     })}
