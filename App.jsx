@@ -8,6 +8,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './Config/apollo'
 import { AllAdvisors } from './Screens'
+import TabNavigation from './Navigation/TabNavigation'
 
 const App = () => {
 
@@ -21,7 +22,8 @@ const App = () => {
       <PersistGate persistor={persistor}>
         <ApolloProvider client={client}>
           {/* <AppNavigator /> */}
-          <AllAdvisors />
+          {/* <AllAdvisors /> */}
+          <TabNavigation />
         </ApolloProvider>
       </PersistGate>
     </Provider>
