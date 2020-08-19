@@ -221,6 +221,15 @@ const AdvisorStyles = StyleSheet.create({
         marginLeft: Screen.width / 2,
         zIndex: 9999,
     },
+    activityStyle: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     playButton: {
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         width: 64,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
@@ -23,16 +23,27 @@ const ApprovedAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
+    const [allAdvisors, setAllAdvisors] = useState([])
+
+    useEffect(() => {
+        client.query({ variables: {}, query: GET_ADVISORS })
+            .then((res) => {
+                const { getAllAdvisorForAdmin } = res.data
+                if (getAllAdvisorForAdmin?.user?.length) {
+                    setAllAdvisors(getAllAdvisorForAdmin.user)
+                }
+                setLoading(false)
+            })
+    })
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <View>
                 {
-                    list.map((item, i) => (
+                    allAdvisors.map((item, i) => (
                         <ListItem
                             key={i}
-                            title={item.title}
-                            leftIcon={{ name: item.icon }}
+                            title={item.userName}
                             bottomDivider
                             chevron={
                                 <Button title="View Profile" buttonStyle={AdvisorStyles.btnStyle} />
@@ -41,6 +52,11 @@ const ApprovedAdvisors = (props) => {
                     ))
                 }
             </View>
+            {isLoading ? <ActivityIndicator
+                color="rgba(0, 0, 0, 0.5)"
+                size="small"
+                style={AdvisorStyles.activityStyle}
+            /> : null}
         </SafeAreaView>
     );
 };
