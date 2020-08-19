@@ -15,7 +15,7 @@ const PendingAdvisors = (props) => {
     const [allAdvisors, setAllAdvisors] = useState([])
 
     useEffect(() => {
-        client.query({ variables: { userId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: false }, query: GET_ADVISORS })
+        client.query({ variables: { userId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: true }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
@@ -36,7 +36,10 @@ const PendingAdvisors = (props) => {
                             leftAvatar={{ source: { uri: item.image } }}
                             bottomDivider
                             chevron={
-                                <Button title="View Profile" buttonStyle={AdvisorStyles.btnStyle} />
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 150 }}>
+                                    <Button title="Approve" />
+                                    <Button title="Cancel" buttonStyle={{ backgroundColor: '#d9534f' }} />
+                                </View>
                             }
                         />
                     ))
