@@ -5,6 +5,7 @@ import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { loginStyles, AdvisorStyles } from '../../styles'
 import { Icon, Button, ListItem } from 'react-native-elements'
 import { GET_ADVISORS } from '../../utils/getQueries'
+import { UPDATE_STATUS } from '../../utils/updateMutations'
 import client from '../../Config/apollo'
 
 
@@ -25,6 +26,10 @@ const PendingAdvisors = (props) => {
             })
     })
 
+    const updateStatus = () => {
+
+    }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <View>
@@ -37,8 +42,15 @@ const PendingAdvisors = (props) => {
                             bottomDivider
                             chevron={
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 150 }}>
-                                    <Button title="Approve" />
-                                    <Button title="Cancel" buttonStyle={{ backgroundColor: '#d9534f' }} />
+                                    <Button
+                                        title="Approve"
+                                        onPress={() => updateStatus(item.id, true)}
+                                    />
+                                    <Button
+                                        title="Cancel"
+                                        onPress={() => updateStatus(item.id, false)}
+                                        buttonStyle={{ backgroundColor: '#d9534f' }}
+                                    />
                                 </View>
                             }
                         />
