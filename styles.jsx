@@ -279,6 +279,11 @@ const AdvisorStyles = StyleSheet.create({
     },
     btnStyle: {
         backgroundColor: appColor
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 

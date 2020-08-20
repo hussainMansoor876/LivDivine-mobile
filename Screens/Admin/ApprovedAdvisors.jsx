@@ -59,11 +59,13 @@ const ApprovedAdvisors = (props) => {
                     ))
                 }
             </View>
-            {isLoading ? <ActivityIndicator
+            {isLoading && !allAdvisors.length ? <ActivityIndicator
                 color="rgba(0, 0, 0, 0.5)"
                 size="small"
                 style={AdvisorStyles.activityStyle}
-            /> : null}
+            /> : <View style={AdvisorStyles.container}>
+                    <Text>No Advisor found!</Text>
+                </View>}
         </SafeAreaView>
     );
 };
