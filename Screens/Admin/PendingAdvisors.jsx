@@ -26,8 +26,12 @@ const PendingAdvisors = (props) => {
             })
     })
 
-    const updateStatus = () => {
-
+    const updateStatus = (userId, status) => {
+        console.log('*****')
+        client.mutate({ variables: { userId, adminId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', status }, mutation: UPDATE_STATUS })
+            .then((res) => {
+                console.log('res.data', res.data)
+            })
     }
 
     return (

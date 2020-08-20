@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 
 const UPDATE_STATUS = gql`
-mutation($userId: String!, $adminId: String!,$status: Boolean!){
+mutation($userId: String!, $adminId: String!, $status: Boolean!){
     approvedAdvisor(userId: $userId,
       adminId: $adminId, status: $status){
       token, message, success, user {
