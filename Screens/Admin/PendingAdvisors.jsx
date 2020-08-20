@@ -15,7 +15,7 @@ const PendingAdvisors = (props) => {
     const [allAdvisors, setAllAdvisors] = useState([])
 
     useEffect(() => {
-        client.query({ variables: { userId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: true }, query: GET_ADVISORS })
+        client.query({ variables: { adminId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: true }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
