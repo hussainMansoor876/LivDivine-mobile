@@ -297,21 +297,17 @@ const homeStyles = StyleSheet.create({
         marginRight: 10,
     },
     tile: {
-        width: 160,
-        height: 150,
-        marginLeft: 10,
-        marginBottom: 10,
-        borderRadius: 20,
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: 10,
+        height: 80,
+        width: '100%',
+        resizeMode: 'cover',
+        height: 150
     },
     main: {
         flex: 1,
         margin: 40,
     },
     image: {
-        width: 10,
+        width: '100%',
         height: 110,
         position: 'absolute',
     },
@@ -319,34 +315,34 @@ const homeStyles = StyleSheet.create({
         flex: 1,
         flexWrap: 'wrap',
         flexDirection: 'row',
-        marginTop: -10,
         backgroundColor: 'white',
-        margin: 12,
         padding: 10,
         justifyContent: 'space-between',
     },
     childStyle: {
-        width: '48%',
+        width: '49%',
         height: 250,
         backgroundColor: 'white',
         borderWidth: 0.5,
         borderColor: 'gray',
-        borderRadius: 15,
+        borderRadius: 10,
         marginTop: 10,
     },
     name: {
         fontWeight: 'bold',
-        marginTop: 120,
-        fontSize: 18
+        marginTop: 115,
+        fontSize: 18,
+        color: '#fff'
     },
     ctgry: {
-        marginTop: 140,
-        fontSize: 10,
+        marginTop: 135,
+        fontSize: 12,
         marginLeft: -87,
+        color: '#fff'
     },
     rating: {
-        marginTop: 153,
-        marginLeft: -65,
+        marginTop: 160,
+        marginLeft: -75,
     }
 })
 
