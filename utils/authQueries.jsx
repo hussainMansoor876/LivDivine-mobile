@@ -63,11 +63,29 @@ mutation($id: String!, $currentPassword: String!, $password: String!){
 `
 
 const BECOME_ADVISOR = gql`
-mutation($id: String, $userName: String!, $title: String!, $image: String!, $thumbnail: String!, $aboutService: String!, $aboutMe: String!) {
-  becomeAdvisor(id: $id, userName: $userName, title: $title, image: $image, aboutService: $aboutService, aboutMe: $aboutMe, isAdvisor: true, isOnline: true, videoThumbnail: $thumbnail, isApproved: false, role: "ADVISOR"){
+mutation($id: String, $userName: String!, $title: String!, $image: String!, $thumbnail: String!, $aboutService: String!, $aboutMe: String!, $categories: Array!, $orderTypes: Array!) {
+  becomeAdvisor(id: $id,
+    userName: $userName,
+    title: $title,
+    image: $image,
+    videoThumbnail: $thumbnail ,
+    role: "ADVISOR",
+    aboutService: $aboutService,
+    aboutMe: $aboutMe,
+    isLogin: true,
+    isAdvisor: true,
+    isOnline: true,
+    categories: $categories,
+    orderTypes: $orderTypes
+    ){
     token, message, success, user {
-      id, userName, email, role, image, isVerified, isOnline, authType, title, image,
-        aboutService, aboutMe, isAdvisor, isApproved, videoThumbnail
+      id, userName, email, role, image, isVerified, isLogin, authType, title, image,
+        aboutService, aboutMe, videoThumbnail, 
+    }, categories{
+      id, userName, categoryName, 
+    },
+    orderTypes{
+      id, userName, orderTypeName, subTitle, price
     }
   }
 }
