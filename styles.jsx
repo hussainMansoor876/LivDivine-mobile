@@ -287,11 +287,75 @@ const AdvisorStyles = StyleSheet.create({
     }
 })
 
+const homeStyles = StyleSheet.create({
+    viewStyles: {
+        justifyContent: 'center',
+        flex: 1,
+        marginTop: 40,
+        padding: 16,
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    tile: {
+        width: 160,
+        height: 150,
+        marginLeft: 10,
+        marginBottom: 10,
+        borderRadius: 20,
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 10,
+    },
+    main: {
+        flex: 1,
+        margin: 40,
+    },
+    image: {
+        width: 10,
+        height: 110,
+        position: 'absolute',
+    },
+    viewStyle: {
+        flex: 1,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        marginTop: -10,
+        backgroundColor: 'white',
+        margin: 12,
+        padding: 10,
+        justifyContent: 'space-between',
+    },
+    childStyle: {
+        width: '48%',
+        height: 250,
+        backgroundColor: 'white',
+        borderWidth: 0.5,
+        borderColor: 'gray',
+        borderRadius: 15,
+        marginTop: 10,
+    },
+    name: {
+        fontWeight: 'bold',
+        marginTop: 120,
+        fontSize: 18
+    },
+    ctgry: {
+        marginTop: 140,
+        fontSize: 10,
+        marginLeft: -87,
+    },
+    rating: {
+        marginTop: 153,
+        marginLeft: -65,
+    }
+})
+
 export {
     loginStyles,
     signupStyles,
     categoriesStyles,
     settingsStyles,
     fvadStyles,
-    AdvisorStyles
+    AdvisorStyles,
+    homeStyles
 }

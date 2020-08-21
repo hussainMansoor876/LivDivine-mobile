@@ -250,10 +250,11 @@ const BecomeAdvisorForm = (props) => {
     }
 
     const updateOrders = (obj) => {
-        setOrders({
-            ...ordersData,
-            ...obj
-        })
+        console.log('obj', obj)
+        // setOrders({
+        //     ...ordersData,
+        //     ...obj
+        // })
     }
 
     const viewList = (v) => {
@@ -374,9 +375,8 @@ const BecomeAdvisorForm = (props) => {
                             <Text style={{ textAlign: 'center' }}>Select Minimum 1 Order Type</Text>
                             {orderTypes.map((v, i) => {
                                 return (
-                                    <TouchableOpacity onPress={() => updateOrders({ [v.title]: !ordersData[v.title] })}>
+                                    <TouchableOpacity key={i} onPress={() => updateOrders(v)}>
                                         <ListItem
-                                            key={i}
                                             // leftAvatar={{ source: { uri: l.avatar_url } }}
                                             title={v.title}
                                             subtitle={viewList(v)}
