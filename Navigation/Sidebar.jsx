@@ -162,7 +162,10 @@ const SideBar = (props) => {
             >
                 <ScrollView style={{ height: height - 50 }}>
                     <View style={{ backgroundColor: appColor, alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={styles.closeIconContainer}>
+                        <TouchableOpacity
+                            style={styles.closeIconContainer}
+                            onPress={navigation.closeDrawer}
+                        >
                             <Icon
                                 name="close"
                                 color="#fff"

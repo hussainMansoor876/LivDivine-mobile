@@ -25,7 +25,7 @@ const Home = (props) => {
                     name='menu'
                     size={30}
                     color='#fff'
-                    onPress={() => navigation.toggleDrawer()}
+                    onPress={navigation.toggleDrawer}
                 />
                 <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Home</Text>
                 <FontAwesomeIcon
