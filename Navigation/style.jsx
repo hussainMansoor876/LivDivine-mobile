@@ -3,14 +3,16 @@ import { StyleSheet, Dimensions, Platform } from 'react-native'
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
+import { appColor } from '../utils/constant'
 
 const styles = StyleSheet.create({
   drawerCover: {
     alignSelf: "stretch",
-    height: deviceHeight / 3.5,
+    height: deviceHeight / 4.5,
     width: null,
     position: "relative",
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: appColor
   },
   drawerView: {
     position: 'absolute',

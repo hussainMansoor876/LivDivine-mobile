@@ -5,10 +5,10 @@ import { Content, Text, List, ListItem, Container, Left } from "native-base";
 import styles from "./style";
 import { Icon } from 'react-native-elements'
 import ToggleSwitch from 'toggle-switch-react-native'
+import { appColor } from "../utils/constant";
 
 const { width, height } = Dimensions.get('window')
 const drawerCover = require('../assets/drawer-cover.png');
-const drawerImage = require("../assets/logo-kitchen-sink.png");
 const dummyImage = require('../assets/dummyImage.png')
 const datas = [
     {
@@ -159,7 +159,15 @@ const SideBar = (props) => {
                 style={{ flex: 1, backgroundColor: "#fff", top: -1 }}
             >
                 <View style={{ height: height - 50 }}>
-                    <Image source={drawerCover} style={styles.drawerCover} />
+                    <View style={{ backgroundColor: appColor }}>
+                        <Icon
+                            name="close"
+                            color="#fff"
+                            size={30}
+                            style={{ backgroundColor: appColor, alignSelf: 'flex-end', marginRight: 5, marginTop: 10 }}
+                        />
+                    </View>
+                    <Image style={styles.drawerCover} />
                     <View style={styles.drawerView}>
                         <Image style={styles.drawerImage} source={user.image === null ? dummyImage : { uri: user.image }} />
                         <Text style={styles.drawerText} >{user.userName}</Text>
