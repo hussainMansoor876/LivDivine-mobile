@@ -25,7 +25,7 @@ const Home = (props) => {
                 <View style={homeStyles.viewStyle}>
                     <View style={homeStyles.childStyle}>
                         <Image
-                            style={{ height: 170, borderTopLeftRadius: 10, borderTopRightRadius: 10 }}
+                            style={homeStyles.tile}
                             source={{ uri: dummyImage }}
                         />
                         <Text style={homeStyles.name}>Yasir Khan</Text>

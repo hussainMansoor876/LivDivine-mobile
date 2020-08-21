@@ -297,10 +297,10 @@ const homeStyles = StyleSheet.create({
         marginRight: 10,
     },
     tile: {
-        height: 80,
-        width: '100%',
-        resizeMode: 'cover',
-        height: 150
+        height: 170,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        resizeMode: 'cover'
     },
     main: {
         flex: 1,
@@ -327,18 +327,22 @@ const homeStyles = StyleSheet.create({
         borderColor: 'gray',
         borderRadius: 10,
         marginTop: 10,
+        flexDirection: 'column'
     },
     name: {
+        marginTop: -50,
+        color: '#fff',
         fontWeight: 'bold',
-        marginTop: 115,
         fontSize: 18,
-        color: '#fff'
+        marginLeft: 5,
+        letterSpacing: 1.2
     },
     ctgry: {
-        marginTop: 135,
         fontSize: 12,
-        marginLeft: -87,
-        color: '#fff'
+        color: '#fff',
+        marginLeft: 6,
+        fontWeight: 'bold',
+        letterSpacing: 1.2
     },
     rating: {
         marginTop: 160,
