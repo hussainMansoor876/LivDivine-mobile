@@ -1,16 +1,18 @@
-import React from 'react';
-import { SafeAreaView, ScrollView, Text, View, TextInput, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { Rating, Image, SearchBar } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { LoginForm, SocialLogin } from '../../Components'
-import { loginStyles, homeStyles } from '../../styles'
-import { useState } from 'react';
+import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
 
 const Home = (props) => {
+    const { navigation } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
     const [state, setState] = useState({
@@ -18,12 +20,26 @@ const Home = (props) => {
     })
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <View style={AdvisorStyles.headerView}>
+                <FeatherIcon
+                    name='menu'
+                    size={30}
+                    color='#fff'
+                    onPress={() => navigation.toggleDrawer()}
+                />
+                <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Home</Text>
+                <FontAwesomeIcon
+                    name="filter"
+                    size={30}
+                    color="#fff"
+                />
+            </View>
             <SearchBar
                 placeholder="Search Advisors"
                 value={state.searchValue}
                 onChangeText={(e) => setState({ ...state, searchValue: e })}
                 placeholderTextColor="#fff"
-                inputStyle={{ color: '#fff' }}
+                inputStyle={loginStyles.spinnerTextStyle}
                 onSubmitEditing={(e) => console.log('******')}
             />
             <ScrollView style={loginStyles.setFlex}>
