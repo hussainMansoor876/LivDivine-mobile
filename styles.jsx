@@ -306,11 +306,6 @@ const homeStyles = StyleSheet.create({
         flex: 1,
         margin: 40,
     },
-    image: {
-        width: '100%',
-        height: 110,
-        position: 'absolute',
-    },
     viewStyle: {
         flex: 1,
         flexWrap: 'wrap',
@@ -330,7 +325,7 @@ const homeStyles = StyleSheet.create({
         flexDirection: 'column'
     },
     name: {
-        marginTop: -50,
+        marginTop: -42,
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 18,
@@ -345,8 +340,9 @@ const homeStyles = StyleSheet.create({
         letterSpacing: 1.2
     },
     rating: {
-        marginTop: 160,
-        marginLeft: -75,
+        marginTop: 10,
+        alignSelf: 'flex-start',
+        marginLeft: 5
     }
 })
 
