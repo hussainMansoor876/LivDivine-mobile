@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Image, View, Dimensions } from "react-native";
+import { Image, View, Dimensions, TouchableOpacity } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
 import { Content, Text, List, ListItem, Container, Left } from "native-base";
 import styles from "./style";
 import { Icon } from 'react-native-elements'
 import ToggleSwitch from 'toggle-switch-react-native'
 import { appColor } from "../utils/constant";
+import { ScrollView } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get('window')
 const drawerCover = require('../assets/drawer-cover.png');
@@ -150,6 +151,7 @@ const advisorData = [
 
 const SideBar = (props) => {
     const user = useSelector(state => state.authReducer.user)
+    const { navigation } = props
     const dispatch = useDispatch();
     const [isAdvisor, setAdvisor] = useState(false)
     return (
@@ -158,14 +160,16 @@ const SideBar = (props) => {
                 bounces={false}
                 style={{ flex: 1, backgroundColor: "#fff", top: -1 }}
             >
-                <View style={{ height: height - 50 }}>
-                    <View style={{ backgroundColor: appColor }}>
-                        <Icon
-                            name="close"
-                            color="#fff"
-                            size={30}
-                            style={{ backgroundColor: appColor, alignSelf: 'flex-end', marginRight: 5, marginTop: 10 }}
-                        />
+                <ScrollView style={{ height: height - 50 }}>
+                    <View style={{ backgroundColor: appColor, alignItems: 'flex-end' }}>
+                        <TouchableOpacity style={styles.closeIconContainer}>
+                            <Icon
+                                name="close"
+                                color="#fff"
+                                size={30}
+                                style={styles.closeIcon}
+                            />
+                        </TouchableOpacity>
                     </View>
                     <Image style={styles.drawerCover} />
                     <View style={styles.drawerView}>
@@ -177,7 +181,7 @@ const SideBar = (props) => {
                         renderRow={(data, index) =>
                             <ListItem
                                 button
-                                onPress={() => props.navigation.navigate(data.route)}
+                                onPress={() => navigation.navigate(data.route)}
                                 key={index.toString()}
                             >
                                 <Left>
@@ -193,7 +197,7 @@ const SideBar = (props) => {
                                 </Left>
                             </ListItem>}
                     />
-                </View>
+                </ScrollView>
                 <View style={{ height: 50, alignItems: 'center' }}>
                     {user.isApproved ? <ToggleSwitch
                         isOn={isAdvisor}

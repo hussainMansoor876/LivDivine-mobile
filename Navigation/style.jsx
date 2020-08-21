@@ -8,12 +8,13 @@ import { appColor } from '../utils/constant'
 const styles = StyleSheet.create({
   drawerCover: {
     alignSelf: "stretch",
-    height: deviceHeight / 4.5,
+    height: deviceHeight / 4.8,
     width: null,
     position: "relative",
     marginBottom: 10,
     backgroundColor: appColor
   },
+
   drawerView: {
     position: 'absolute',
     flexDirection: 'row',
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%'
   },
+
   drawerImage: {
     // position: "absolute",
     // left: 10,
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 60
   },
+
   drawerText: {
     // position: "relative",
     // right: 40,
@@ -43,16 +46,30 @@ const styles = StyleSheet.create({
     marginLeft: 5,
 
   },
+
   text: {
     fontWeight: Platform.OS === "ios" ? "500" : "400",
     fontSize: 16,
     marginLeft: 20
   },
+
   badgeText: {
     fontSize: Platform.OS === "ios" ? 13 : 11,
     fontWeight: "400",
     textAlign: "center",
     marginTop: Platform.OS === "android" ? -3 : undefined
+  },
+
+  closeIconContainer: {
+    height: 50,
+    width: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  closeIcon: {
+    backgroundColor: appColor,
+    alignSelf: 'flex-end'
   }
 })
 
