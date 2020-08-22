@@ -284,6 +284,19 @@ const AdvisorStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    advisorModal: {
+        flex: 1,
+        backgroundColor: '#fff',
+        marginTop: 50,
+        marginLeft: 5,
+        marginRight: 5,
+        borderRadius: 10
+    },
+    modalView: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row'
     }
 })
 

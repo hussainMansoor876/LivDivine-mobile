@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { Rating, Image, SearchBar, Button } from 'react-native-elements'
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { LoginForm, SocialLogin } from '../../Components'
@@ -8,10 +8,13 @@ import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { appColor } from '../../utils/constant';
+import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
+
+const list = ['24-hour delivery', '1-hour delivery', 'Live video call', 'Live chat', 'Live voice call', 'Live chat', 'Currently offline', 'All advisors']
 
 const Home = (props) => {
     const { navigation } = props
@@ -40,6 +43,7 @@ const Home = (props) => {
                     name="filter"
                     size={30}
                     color="#fff"
+                    onPress={toggleModal}
                 />
             </View>
             <SearchBar
@@ -79,20 +83,43 @@ const Home = (props) => {
                     </View>
                 </View>
             </ScrollView>
-            <View style={{ flex: 1 }}>
-                <Button title="Show modal" onPress={toggleModal} />
-                <Modal
-                    isVisible={isModalVisible}
-                    backdropOpacity={0.5}
-                    backdropTransitionInTiming={100}
-                    backdropTransitionOutTiming={100}
-                >
-                    <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>Hello!</Text>
-                        <Button title="Hide modal" onPress={toggleModal} />
+            <Modal
+                isVisible={isModalVisible}
+                backdropOpacity={0.5}
+                backdropTransitionInTiming={100}
+                backdropTransitionOutTiming={100}
+                onBackdropPress={toggleModal}
+            >
+                <View style={AdvisorStyles.advisorModal}>
+                    <View style={AdvisorStyles.modalView}>
+                        <Text style={{ textAlign: 'center', marginTop: 10, marginBottom: 10, fontSize: 24, color: 'rgba(0, 0, 0, 0.5)', marginLeft: 10 }}>Select a filter</Text>
+                        <TouchableOpacity
+                            style={styles.closeIconContainer}
+                            onPress={toggleModal}
+                        >
+                            <Icon
+                                name="close"
+                                size={30}
+                            />
+                        </TouchableOpacity>
                     </View>
-                </Modal>
-            </View>
+                    {
+                        list.map((v, i) => (
+                            <ListItem
+                                key={i}
+                                title={
+                                    <View style={{ width: '100%' }}>
+                                        <TouchableOpacity onPress={() => console.log('Hello')}>
+                                            <Text style={{ textAlign: 'center', fontSize: 20 }}>{v}</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                }
+                                topDivider
+                            />
+                        ))
+                    }
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 };
