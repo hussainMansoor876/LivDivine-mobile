@@ -7,6 +7,7 @@ import { LoginForm, SocialLogin } from '../../Components'
 import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { appColor } from '../../utils/constant';
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
@@ -38,18 +39,16 @@ const Home = (props) => {
                 placeholder="Search Advisors"
                 value={state.searchValue}
                 onChangeText={(e) => setState({ ...state, searchValue: e })}
-                placeholderTextColor="#fff"
-                inputStyle={loginStyles.spinnerTextStyle}
+                // placeholderTextColor="#fff"
+                lightTheme
+                inputStyle={{ backgroundColor: '#fff' }}
                 onSubmitEditing={(e) => console.log('******')}
+                round
+                color="#000000"
+                containerStyle={{ backgroundColor: appColor }}
+                inputContainerStyle={{ backgroundColor: '#fff' }}
             />
             <ScrollView style={loginStyles.setFlex}>
-                {/* <View style={homeStyles.viewStyles}>
-                    <TextInput
-                        style={homeStyles.textInputStyle}
-                        underlineColorAndroid="transparent"
-                        placeholder="Search"
-                    />
-                </View> */}
                 <View style={homeStyles.viewStyle}>
                     <View style={homeStyles.childStyle}>
                         <Image

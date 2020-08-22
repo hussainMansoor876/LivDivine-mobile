@@ -310,7 +310,6 @@ const homeStyles = StyleSheet.create({
         flex: 1,
         flexWrap: 'wrap',
         flexDirection: 'row',
-        backgroundColor: 'white',
         padding: 10,
         justifyContent: 'space-between',
     },
