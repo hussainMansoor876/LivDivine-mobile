@@ -85,7 +85,7 @@ mutation($id: String, $userName: String!, $title: String!, $image: String!, $thu
       id, userName, categoryName, 
     },
     orderTypes{
-      id, userName, orderTypeName, subTitle, price
+      id, userName, orderTypeName, subTitle, price, isActive
     }
   }
 }
