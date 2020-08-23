@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../Redux/actions/authActions';
@@ -7,7 +7,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { loginStyles, AdvisorStyles } from '../styles'
 import client from '../Config/apollo'
 import { BECOME_ADVISOR } from '../utils/authQueries'
-import { categoriesArray } from '../utils/constant'
 import FontIcon from 'react-native-vector-icons/FontAwesome';
 import StepIndicator from 'react-native-step-indicator';
 import ImagePicker from 'react-native-image-picker';
@@ -17,7 +16,7 @@ import MediaMeta from 'react-native-media-meta';
 import RNThumbnail from 'react-native-thumbnail';
 import Screen from '../utils/ScreenDimensions'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { customStyles, labels, videoOptions, orderTypes, appColor } from '../utils/constant'
+import { customStyles, labels, videoOptions, orderTypes, categoriesArray } from '../utils/constant'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import RNFetchBlob from 'rn-fetch-blob'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -34,7 +33,7 @@ const BecomeAdvisorForm = (props) => {
     const [isLoadingVideo, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
     const [categoriesData, setCategories] = useState({})
-    const [ordersData, setOrders] = useState({})
+    const [ordersData, setOrders] = useState(orderTypes)
     const [state, setState] = useState({
         userName: user.userName,
         title: '',
@@ -45,9 +44,10 @@ const BecomeAdvisorForm = (props) => {
         aboutServiceErr: '',
         aboutMeErr: '',
         isLoading: false,
-        currentPosition: 0,
+        currentPosition: 2,
         thumbnail: null,
-        loadingText: 'Loading...'
+        loadingText: 'Loading...',
+        orderUpdate: true
     })
 
     const updateServer = (obj) => {
@@ -249,18 +249,17 @@ const BecomeAdvisorForm = (props) => {
         setLoading(true)
     }
 
-    const updateOrders = (obj) => {
-        console.log('obj', obj)
-        // setOrders({
-        //     ...ordersData,
-        //     ...obj
-        // })
+    const updateOrders = (i) => {
+        updateField({ orderUpdate: false })
+        ordersData[i].isActive = !ordersData[i].isActive
+        setOrders(ordersData)
+        updateField({ orderUpdate: true })
     }
 
     const viewList = (v) => {
         return (
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: Screen.width - 90 }}>
-                <Text style={{ fontSize: 12 }}>{v.subtitle}</Text>
+                <Text style={{ fontSize: 12 }}>{v.subTitle}</Text>
                 <Text>{v.price}</Text>
             </View>
         )
@@ -373,19 +372,19 @@ const BecomeAdvisorForm = (props) => {
                             />
                         </View> : state.currentPosition === 2 ? <View>
                             <Text style={{ textAlign: 'center' }}>Select Minimum 1 Order Type</Text>
-                            {orderTypes.map((v, i) => {
+                            {state.orderUpdate ? ordersData.map((v, i) => {
                                 return (
-                                    <TouchableOpacity key={i} onPress={() => updateOrders(v)}>
+                                    <TouchableOpacity key={i} onPress={() => updateOrders(i)}>
                                         <ListItem
                                             // leftAvatar={{ source: { uri: l.avatar_url } }}
-                                            title={v.title}
+                                            title={v.orderTypeName}
                                             subtitle={viewList(v)}
                                             bottomDivider
-                                            checkmark={ordersData[v.title]}
+                                            checkmark={v.isActive}
                                         />
                                     </TouchableOpacity>
                                 )
-                            })}
+                            }) : null}
                         </View> : state.currentPosition === 3 ? <View>
                             {state.thumbnail && (
                                 <View style={{ justifyContent: 'center' }}>
