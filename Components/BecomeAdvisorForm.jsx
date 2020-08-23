@@ -44,17 +44,19 @@ const BecomeAdvisorForm = (props) => {
         aboutServiceErr: '',
         aboutMeErr: '',
         isLoading: false,
-        currentPosition: 2,
+        currentPosition: 3,
         thumbnail: null,
         loadingText: 'Loading...',
         orderUpdate: true
     })
 
     const updateServer = (obj) => {
+        console.log('obj', obj)
         client.mutate({ variables: obj, mutation: BECOME_ADVISOR })
             .then((res) => {
                 updateField({ isLoading: false })
                 const { becomeAdvisor } = res.data
+                console.log('becomeAdvisor', becomeAdvisor)
                 if (becomeAdvisor.success) {
                     dispatch(loginUser(becomeAdvisor.user))
                     Alert.alert(
@@ -118,7 +120,7 @@ const BecomeAdvisorForm = (props) => {
     }
 
     const handleChooseVideo = () => {
-        ImagePicker.showImagePicker(videoOptions, response => {
+        ImagePicker.showImagePicker(videoOptions, async (response) => {
             if (response.uri) {
                 const path = response.path
                 const maxTime = 180000;
@@ -135,13 +137,9 @@ const BecomeAdvisorForm = (props) => {
                             );
                         } else {
                             setUploadVideo(response.uri)
-                            RNThumbnail.get(response.path)
-                                .then((res) => {
-                                    updateField({ thumbnail: res.path })
-                                })
                         }
                     })
-                    .catch(err => console.error(err));
+                    .catch(err => console.log(err));
             }
         })
     }
@@ -211,18 +209,19 @@ const BecomeAdvisorForm = (props) => {
             .then((result) => {
                 updateField({ thumbnail: result.secure_url })
             })
-        // await uploadVideoFile(uploadVideo)
-        //     .then(response => response.json())
-        //     .then((result) => {
-        //         setUploadVideo(result.secure_url)
-        //     })
+        await uploadVideoFile(uploadVideo)
+            .then(response => response.json())
+            .then((result) => {
+                setUploadVideo(result.secure_url)
+            })
     }
 
     const registerAdvisor = async () => {
         await uploadCloud()
         const { userName, title, aboutMe, aboutService, thumbnail } = state
         const { id } = user
-        updateServer({ id, userName, title, image: photo, thumbnail, aboutService, aboutMe })
+        var categories = Object.entries(categoriesData).filter(v => v[1]).map(v => v[0])
+        updateServer({ id, userName, title, image: photo, thumbnail: photo, aboutService, aboutMe, categories, orderTypes: ordersData })
     }
 
     const getObjLength = (obj) => Object.values(obj).filter(v => v).length
@@ -235,7 +234,7 @@ const BecomeAdvisorForm = (props) => {
     }
 
     const updateCategories = (obj) => {
-        if (getObjLength(categoriesData) >= 3) {
+        if (Object.values(obj)[0] && getObjLength(categoriesData) >= 3) {
             return Alert.alert('Maximum 3 categories Allowed!')
         }
         setCategories({
@@ -265,6 +264,7 @@ const BecomeAdvisorForm = (props) => {
         )
     }
 
+    console.log('uploadVideo', uploadVideo)
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <Spinner
@@ -386,12 +386,17 @@ const BecomeAdvisorForm = (props) => {
                                 )
                             }) : null}
                         </View> : state.currentPosition === 3 ? <View>
-                            {state.thumbnail && (
+                            {uploadVideo && (
                                 <View style={{ justifyContent: 'center' }}>
                                     <TouchableOpacity onPress={() => setShowVideo(true)} style={{ height: 230, width: Screen.width }}>
-                                        <Image
+                                        {/* <Image
                                             source={{ uri: state.thumbnail }}
                                             style={{ height: 230, width: Screen.width, resizeMode: 'cover' }}
+                                        /> */}
+                                        <Video
+                                            source={{ uri: uploadVideo }}
+                                            style={{ height: 230, width: Screen.width }}
+                                            paused={true}
                                         />
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={() => setShowVideo(true)} style={AdvisorStyles.playButton}>
