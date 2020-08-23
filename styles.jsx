@@ -297,6 +297,10 @@ const AdvisorStyles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row'
+    },
+    btnColor: {
+        width: 150,
+        backgroundColor: appColor
     }
 })
 

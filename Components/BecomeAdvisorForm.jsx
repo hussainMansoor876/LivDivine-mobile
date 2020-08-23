@@ -17,7 +17,7 @@ import MediaMeta from 'react-native-media-meta';
 import RNThumbnail from 'react-native-thumbnail';
 import Screen from '../utils/ScreenDimensions'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { customStyles, labels, videoOptions, orderTypes } from '../utils/constant'
+import { customStyles, labels, videoOptions, orderTypes, appColor } from '../utils/constant'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import RNFetchBlob from 'rn-fetch-blob'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -349,7 +349,7 @@ const BecomeAdvisorForm = (props) => {
                                     style={{ width: 150, height: 150, marginRight: 10, marginLeft: 10, borderRadius: 250 }}
                                 />
                             )}
-                            <Button title="Choose Photo" buttonStyle={{ ...loginStyles.loginBtn, width: 150 }} onPress={handleChoosePhoto} />
+                            <Button title="Choose Photo" buttonStyle={{ ...loginStyles.loginBtn, ...AdvisorStyles.btnColor }} onPress={handleChoosePhoto} />
                         </View> : state.currentPosition === 1 ? <View>
                             <Input
                                 placeholder="About my services"
@@ -427,7 +427,7 @@ const BecomeAdvisorForm = (props) => {
                                 color='#fff'
                             />
                         }
-                            buttonStyle={{ width: 150 }}
+                            buttonStyle={AdvisorStyles.btnColor}
                             disabled={!state.currentPosition}
                             onPress={() => updateFieldSteps('left')}
                         />
@@ -438,7 +438,7 @@ const BecomeAdvisorForm = (props) => {
                                 color='#fff'
                             />
                         }
-                            buttonStyle={{ width: 150 }}
+                            buttonStyle={AdvisorStyles.btnColor}
                             onPress={() => updateFieldSteps('right')}
                             disabled={state.currentPosition === 5}
                         />
