@@ -16,7 +16,7 @@ import MediaMeta from 'react-native-media-meta';
 import RNThumbnail from 'react-native-thumbnail';
 import Screen from '../utils/ScreenDimensions'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { customStyles, labels, videoOptions, orderTypes, categoriesArray } from '../utils/constant'
+import { customStyles, labels, videoOptions, orderTypesCopy, categoriesArray } from '../utils/constant'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import RNFetchBlob from 'rn-fetch-blob'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -33,7 +33,7 @@ const BecomeAdvisorForm = (props) => {
     const [isLoadingVideo, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
     const [categoriesData, setCategories] = useState({})
-    const [ordersData, setOrders] = useState(orderTypes)
+    const [ordersData, setOrders] = useState(orderTypesCopy)
     const [state, setState] = useState({
         userName: user.userName,
         title: '',
@@ -44,7 +44,7 @@ const BecomeAdvisorForm = (props) => {
         aboutServiceErr: '',
         aboutMeErr: '',
         isLoading: false,
-        currentPosition: 3,
+        currentPosition: 0,
         thumbnail: null,
         loadingText: 'Loading...',
         orderUpdate: true
@@ -204,16 +204,13 @@ const BecomeAdvisorForm = (props) => {
                     setPhoto(result.secure_url)
                 })
         }
-        await uploadFile(state.thumbnail)
-            .then(response => response.json())
-            .then((result) => {
-                updateField({ thumbnail: result.secure_url })
-            })
-        await uploadVideoFile(uploadVideo)
-            .then(response => response.json())
-            .then((result) => {
-                setUploadVideo(result.secure_url)
-            })
+        if (uploadVideo.indexOf('https://res.cloudinary.com') === -1) {
+            await uploadVideoFile(uploadVideo)
+                .then(response => response.json())
+                .then((result) => {
+                    setUploadVideo(result.secure_url)
+                })
+        }
     }
 
     const registerAdvisor = async () => {
@@ -264,7 +261,6 @@ const BecomeAdvisorForm = (props) => {
         )
     }
 
-    console.log('uploadVideo', uploadVideo)
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <Spinner

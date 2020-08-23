@@ -102,6 +102,39 @@ const orderTypes = [
     }
 ]
 
+const orderTypesCopy = [
+    {
+        orderTypeName: 'Video reading',
+        subTitle: 'Recorded & delivered within 24 hours',
+        price: 10,
+        isActive: false
+    },
+    {
+        orderTypeName: 'Rush video reading',
+        subTitle: 'Recorded & delivered within 60 minutes',
+        price: 15,
+        isActive: false
+    },
+    {
+        orderTypeName: 'Live chat',
+        subTitle: 'Live caht reading - right now',
+        price: 0.99,
+        isActive: false
+    },
+    {
+        orderTypeName: 'Live video call',
+        subTitle: 'Live video reading - right now',
+        price: 3.99,
+        isActive: false
+    },
+    {
+        orderTypeName: 'Live audio call',
+        subTitle: 'Live audio reading - right now',
+        price: 1.99,
+        isActive: false
+    }
+]
+
 const appColor = '#FF1493'
 
 export {
@@ -110,5 +143,6 @@ export {
     videoOptions,
     categoriesArray,
     orderTypes,
-    appColor
+    appColor,
+    orderTypesCopy
 }
