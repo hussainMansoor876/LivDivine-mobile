@@ -8,6 +8,7 @@ import Journey from './Journey/Journey'
 import Settings from './Settings/Settings'
 import BecomeAdvisor from './BecomeAdvisor/BecomeAdvisor'
 import AdvisorProfile from './AdvisorProfile/AdvisorProfile'
+import AdvisorSettings from './AdvisorSettings/AdvisorSettings'
 
 export {
     Login,
@@ -19,5 +20,6 @@ export {
     Journey,
     Settings,
     BecomeAdvisor,
-    AdvisorProfile
+    AdvisorProfile,
+    AdvisorSettings
 }

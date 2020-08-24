@@ -7,7 +7,7 @@ import AppNavigator from './Navigation'
 import SplashScreen from 'react-native-splash-screen'
 import { ApolloProvider } from '@apollo/react-hooks';
 import client from './Config/apollo'
-import { AllAdvisors } from './Screens'
+import { AdvisorSettings } from './Screens'
 import TabNavigation from './Navigation/TabNavigation'
 
 const App = () => {
@@ -21,8 +21,8 @@ const App = () => {
     <Provider store={store} >
       <PersistGate persistor={persistor}>
         <ApolloProvider client={client}>
-          <AppNavigator />
-          {/* <TabNavigation /> */}
+          {/* <AppNavigator /> */}
+          <AdvisorSettings />
         </ApolloProvider>
       </PersistGate>
     </Provider>

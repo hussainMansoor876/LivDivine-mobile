@@ -136,7 +136,7 @@ const advisorData = [
     },
     {
         name: "Settings",
-        route: "Settings",
+        route: "AdvisorSettings",
         icon: "cog",
         bg: "#477EEA"
     },
