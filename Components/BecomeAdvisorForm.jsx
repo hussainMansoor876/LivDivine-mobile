@@ -215,10 +215,10 @@ const BecomeAdvisorForm = (props) => {
 
     const registerAdvisor = async () => {
         await uploadCloud()
-        const { userName, title, aboutMe, aboutService, thumbnail } = state
+        const { userName, title, aboutMe, aboutService } = state
         const { id } = user
         var categories = Object.entries(categoriesData).filter(v => v[1]).map(v => v[0])
-        updateServer({ id, userName, title, image: photo, thumbnail: photo, aboutService, aboutMe, categories, orderTypes: ordersData })
+        updateServer({ id, userName, title, image: photo, aboutService, aboutMe, categories, orderTypes: ordersData })
     }
 
     const getObjLength = (obj) => Object.values(obj).filter(v => v).length

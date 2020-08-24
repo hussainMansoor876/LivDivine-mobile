@@ -63,12 +63,12 @@ mutation($id: String!, $currentPassword: String!, $password: String!){
 `
 
 const BECOME_ADVISOR = gql`
-mutation($id: String, $userName: String!, $title: String!, $image: String!, $thumbnail: String!, $aboutService: String!, $aboutMe: String!, $categories: [String], $orderTypes: String!) {
+mutation($id: String, $userName: String!, $title: String!, $image: String!, $video: String!, $aboutService: String!, $aboutMe: String!, $categories: [String], $orderTypes: String!) {
   becomeAdvisor(id: $id,
     userName: $userName,
     title: $title,
     image: $image,
-    videoThumbnail: $thumbnail ,
+    video: $video ,
     role: "ADVISOR",
     aboutService: $aboutService,
     aboutMe: $aboutMe,
