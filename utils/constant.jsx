@@ -135,6 +135,10 @@ const orderTypesCopy = [
     }
 ]
 
+const roundToTwo = (num) => {
+    return +(Math.round(num + "e+2") + "e-2")
+}
+
 const appColor = '#FF1493'
 
 export {
@@ -144,5 +148,6 @@ export {
     categoriesArray,
     orderTypes,
     appColor,
-    orderTypesCopy
+    orderTypesCopy,
+    roundToTwo
 }
