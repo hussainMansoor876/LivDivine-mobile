@@ -28,21 +28,24 @@ const AdvisorSettings = (props) => {
                 <View style={settingsStyles.header}>
                     <Text h1 style={settingsStyles.fieldsbold}>ADVISOR ACCOUNT</Text>
                 </View>
-                {state.showOrder ? <OrderTypeUpdate {...props} /> : <View>
-                    <View style={{ marginTop: 10, marginBottom: -10, flexDirection: 'row', justifyContent: 'space-around' }}>
-                        <Button
-                            title="Orders Setting"
-                            buttonStyle={{ ...loginStyles.loginBtn, width: 180 }}
-                            onPress={() => updateField({ showOrder: true })}
-                        />
-                        <Button
-                            title="Categories Setting"
-                            buttonStyle={{ ...loginStyles.loginBtn, width: 180 }}
-                        />
-                    </View>
-                    <ASettingsForm {...props} />
-                    {user.authType === null ? <ChangePassword {...props} /> : null}
-                </View>}
+                {state.showOrder ? <OrderTypeUpdate
+                    {...props}
+                    updateField={() => updateField({ showOrder: false })}
+                /> : <View>
+                        <View style={{ marginTop: 10, marginBottom: -10, flexDirection: 'row', justifyContent: 'space-around' }}>
+                            <Button
+                                title="Orders Setting"
+                                buttonStyle={{ ...loginStyles.loginBtn, width: 180 }}
+                                onPress={() => updateField({ showOrder: true })}
+                            />
+                            <Button
+                                title="Categories Setting"
+                                buttonStyle={{ ...loginStyles.loginBtn, width: 180 }}
+                            />
+                        </View>
+                        <ASettingsForm {...props} />
+                        {user.authType === null ? <ChangePassword {...props} /> : null}
+                    </View>}
             </ScrollView>
         </SafeAreaView>
     );

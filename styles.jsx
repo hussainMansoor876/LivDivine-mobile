@@ -161,8 +161,17 @@ const settingsStyles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
         paddingTop: 20,
-        // borderColor: '#000000',
-        // borderWidth: 2,
+        borderColor: '#000000',
+        borderWidth: 2,
+        marginTop: 20,
+        paddingBottom: 10,
+        borderRadius: 10
+    },
+    aSettingsView: {
+        flex: 1,
+        marginRight: 10,
+        marginLeft: 10,
+        paddingTop: 20,
         marginTop: 20,
         paddingBottom: 10,
         borderRadius: 10

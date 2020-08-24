@@ -62,11 +62,16 @@ const SettingsForm = (props) => {
     }
 
     return (
-        <View style={{ ...settingsStyles.settingsView, marginBottom: 30 }}>
+        <View style={{ ...settingsStyles.aSettingsView, marginBottom: 30 }}>
             <Spinner
                 visible={state.isLoading}
                 textContent={'Loading...'}
                 textStyle={loginStyles.spinnerTextStyle}
+            />
+            <Button
+                title="Back"
+                buttonStyle={{ ...loginStyles.loginBtn, width: 100, marginTop: 0, marginBottom: 15 }}
+                onPress={props.updateField}
             />
             <Text style={settingsStyles.textStyle}>Update Orders</Text>
             <View style={{ width: '95%', marginLeft: '2%' }}>
@@ -118,7 +123,6 @@ const SettingsForm = (props) => {
             <Button
                 title="UPDATE ORDERS"
                 buttonStyle={loginStyles.loginBtn}
-                onPress={updatePassword}
             />
         </View>
     );
