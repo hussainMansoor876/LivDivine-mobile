@@ -54,7 +54,8 @@ const loginStyles = StyleSheet.create({
         marginLeft: '2%',
         marginTop: 10,
         marginBottom: 10,
-        height: 46
+        height: 46,
+        backgroundColor: appColor
     },
     socialBtn: {
         flex: 1

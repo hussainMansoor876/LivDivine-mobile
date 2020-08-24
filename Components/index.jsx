@@ -5,6 +5,7 @@ import Header from './Header'
 import SettingsForm from './SettingsForm'
 import ChangePassword from './ChangePassword'
 import BecomeAdvisorForm from './BecomeAdvisorForm'
+import ASettingsForm from './ASettingsForm'
 
 export {
     LoginForm,
@@ -13,5 +14,6 @@ export {
     Header,
     SettingsForm,
     ChangePassword,
-    BecomeAdvisorForm
+    BecomeAdvisorForm,
+    ASettingsForm
 }

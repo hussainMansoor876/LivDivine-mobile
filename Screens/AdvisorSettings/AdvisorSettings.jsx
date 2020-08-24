@@ -2,10 +2,8 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text, Button, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { LoginForm, SocialLogin, SettingsForm, ChangePassword } from '../../Components'
+import { ASettingsForm, ChangePassword } from '../../Components'
 import { loginStyles, settingsStyles } from '../../styles'
-import { Divider } from 'react-native-elements'
-import { Icon } from 'react-native-elements'
 
 
 
@@ -19,7 +17,7 @@ const AdvisorSettings = (props) => {
                 <View style={settingsStyles.header}>
                     <Text h1 style={settingsStyles.fieldsbold}>ADVISOR ACCOUNT</Text>
                 </View>
-                <SettingsForm {...props} />
+                <ASettingsForm {...props} />
                 {user.authType === null ? <ChangePassword {...props} /> : null}
             </ScrollView>
         </SafeAreaView>
