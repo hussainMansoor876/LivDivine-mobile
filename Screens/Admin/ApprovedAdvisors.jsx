@@ -17,7 +17,7 @@ const ApprovedAdvisors = (props) => {
     const [advisor, setAdvisor] = useState({})
 
     useEffect(() => {
-        client.query({ variables: { adminId: '891ecf72-8c28-4ce9-a77a-53cd1f33dc38', isApproved: true }, query: GET_ADVISORS })
+        client.query({ variables: { adminId: '421c6267-7911-4686-91fe-fe424e8efe00', isApproved: true }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
@@ -63,9 +63,9 @@ const ApprovedAdvisors = (props) => {
                 color="rgba(0, 0, 0, 0.5)"
                 size="small"
                 style={AdvisorStyles.activityStyle}
-            /> : <View style={AdvisorStyles.container}>
-                    <Text>No Advisor found!</Text>
-                </View>}
+            /> : !isLoading && !allAdvisors.length ? <View style={AdvisorStyles.container}>
+                <Text>No Advisor found!</Text>
+            </View> : null}
         </SafeAreaView>
     );
 };

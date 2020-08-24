@@ -18,7 +18,6 @@ const ViewAdvisor = (props) => {
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
     const [showVideo, setShowVideo] = useState(false)
-    console.log(advisor)
     const updateLoading = (e) => {
         if (currentTime === e.currentTime) {
             setCurretTime(e.currentTime)
@@ -32,6 +31,19 @@ const ViewAdvisor = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Button
+                icon={
+                    <Icon
+                        type="font-awesome"
+                        color="#fff"
+                        name="chevron-left"
+                        size={20}
+                        iconStyle={{ zIndex: 9999 }}
+                    />
+                }
+                buttonStyle={{ ...loginStyles.loginBtn, width: 60, marginTop: 10, marginBottom: 15, height: 40 }}
+                onPress={props.cancelView}
+            />
             {showVideo ? <View style={{ height: Screen.height, backgroundColor: '#000' }}>
                 <TouchableOpacity onPress={() => setShowVideo(false)} style={AdvisorStyles.leftIcon}>
                     <Icon
@@ -76,7 +88,7 @@ const ViewAdvisor = (props) => {
                             <Text>{advisor.title}</Text>
                         </View>
                     </View>
-                    {orderTypes.map((v, i) => {
+                    {/* {orderTypes.map((v, i) => {
                         return (
                             <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
                                 <View style={AdvisorStyles.orderView}>
@@ -86,7 +98,7 @@ const ViewAdvisor = (props) => {
                                 <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
                             </View>
                         )
-                    })}
+                    })} */}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT MY SERVICES</Text>
                         <Text style={AdvisorStyles.aboutText}>{advisor.aboutService}
