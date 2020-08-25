@@ -16,6 +16,7 @@ export default function App() {
       /> */}
       <NavigationContainer>
         <Tab.Navigator
+        lazy={true}
         >
           <Tab.Screen name="Approved" component={ApprovedAdvisors} />
           <Tab.Screen name="Pending" component={PendingAdvisors} />

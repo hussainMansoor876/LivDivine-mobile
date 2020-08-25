@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { SafeAreaView, ScrollView, Text, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { loginStyles, AdvisorStyles } from '../../styles'
 import { Icon, Button, ListItem } from 'react-native-elements'
@@ -8,66 +8,107 @@ import { GET_ADVISORS } from '../../utils/getQueries'
 import client from '../../Config/apollo'
 import ViewAdvisor from './ViewAdvisor'
 
-const ApprovedAdvisors = (props) => {
-    const user = useSelector(state => state.authReducer.user);
-    const dispatch = useDispatch()
-    const [isLoading, setLoading] = useState(true)
-    const [allAdvisors, setAllAdvisors] = useState([])
-    const [showAdvisor, setShowAdvisor] = useState(false)
-    const [advisor, setAdvisor] = useState({})
+class ApprovedAdvisors extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            isLoading: true,
+            allAdvisors: [],
+            showAdvisor: false,
+            advisor: {}
+        }
+    }
 
-    useEffect(() => {
+    getData = () => {
         client.query({ variables: { adminId: '421c6267-7911-4686-91fe-fe424e8efe00', isApproved: true }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
-                    setAllAdvisors(getAllAdvisorForAdmin.user)
+                    this.setState({
+                        allAdvisors: getAllAdvisorForAdmin.user,
+                        isLoading: false
+                    })
                 }
-                setLoading(false)
+                else {
+                    this.setState({ isLoading: false })
+                }
             })
-    })
-
-    const showProfile = (user) => {
-        setAdvisor(user)
-        setShowAdvisor(true)
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+                this.setState({ isLoading: false })
+            })
     }
 
-    if (showAdvisor) {
+    componentDidMount() {
+        const { user } = this.props
+        // if (!user) {
+        //     this.props.history.replace('/login')
+        // }
+        this.getData()
+    }
+
+    showProfile = (user) => {
+        this.setState({
+            advisor: user,
+            showAdvisor: true
+        })
+    }
+
+
+    render() {
+        const { showAdvisor, advisor, allAdvisors, isLoading } = this.state
+
+        if (showAdvisor) {
+            return (
+                <ViewAdvisor {...props} advisor={advisor} cancelView={() => this.setState({ showAdvisor: false })} />
+            )
+        }
+
         return (
-            <ViewAdvisor {...props} advisor={advisor} cancelView={() => setShowAdvisor(false)} />
-        )
+            <SafeAreaView style={loginStyles.setFlex}>
+                <View>
+                    {
+                        allAdvisors.map((item, i) => (
+                            <ListItem
+                                key={i}
+                                title={item.userName}
+                                leftAvatar={{ source: { uri: item.image } }}
+                                bottomDivider
+                                chevron={
+                                    <Button
+                                        title="View Profile"
+                                        buttonStyle={AdvisorStyles.btnStyle}
+                                        onPress={() => this.showProfile(item)}
+                                    />
+                                }
+                            />
+                        ))
+                    }
+                </View>
+                {isLoading && !allAdvisors.length ? <ActivityIndicator
+                    color="rgba(0, 0, 0, 0.5)"
+                    size="small"
+                    style={AdvisorStyles.activityStyle}
+                /> : !isLoading && !allAdvisors.length ? <View style={AdvisorStyles.container}>
+                    <Text>No Advisor found!</Text>
+                </View> : null}
+            </SafeAreaView>
+        );
     }
+}
 
-    return (
-        <SafeAreaView style={loginStyles.setFlex}>
-            <View>
-                {
-                    allAdvisors.map((item, i) => (
-                        <ListItem
-                            key={i}
-                            title={item.userName}
-                            leftAvatar={{ source: { uri: item.image } }}
-                            bottomDivider
-                            chevron={
-                                <Button
-                                    title="View Profile"
-                                    buttonStyle={AdvisorStyles.btnStyle}
-                                    onPress={() => showProfile(item)}
-                                />
-                            }
-                        />
-                    ))
-                }
-            </View>
-            {isLoading && !allAdvisors.length ? <ActivityIndicator
-                color="rgba(0, 0, 0, 0.5)"
-                size="small"
-                style={AdvisorStyles.activityStyle}
-            /> : !isLoading && !allAdvisors.length ? <View style={AdvisorStyles.container}>
-                <Text>No Advisor found!</Text>
-            </View> : null}
-        </SafeAreaView>
-    );
-};
+const mapStateToProps = (state) => {
+    return {
+        user: state.authReducer.user,
+    }
+}
 
-export default ApprovedAdvisors;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginUser: (user) => dispatch(loginUser(user)),
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApprovedAdvisors)
