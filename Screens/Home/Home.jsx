@@ -33,16 +33,14 @@ const Home = (props) => {
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
                 if (getAllAdvisorForUser?.user?.length) {
-                    console.log('res', getAllAdvisorForUser.user[0])
                     updateField({ allAdvisors: getAllAdvisorForUser.user })
                 }
-                // setLoading(false)
             })
             .catch((e) => {
                 Alert.alert('Oops Something Went Wrong!')
                 // setLoading(false)
             })
-    })
+    }, [])
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
@@ -92,7 +90,7 @@ const Home = (props) => {
                             <View style={homeStyles.childStyle} key={i}>
                                 <Image
                                     style={homeStyles.tile}
-                                    source={{ uri: dummyImage }}
+                                    source={{ uri: v.image }}
                                 />
                                 <Text style={homeStyles.name}>{v.userName}</Text>
                                 <Text style={homeStyles.ctgry}>Love & Career</Text>
