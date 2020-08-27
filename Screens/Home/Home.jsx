@@ -24,7 +24,8 @@ const Home = (props) => {
     const dispatch = useDispatch();
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
-        searchValue: ''
+        searchValue: '',
+        allAdvisors: []
     })
 
     useEffect(() => {
@@ -32,7 +33,8 @@ const Home = (props) => {
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
                 if (getAllAdvisorForUser?.user?.length) {
-                    console.log('res', getAllAdvisorForUser.user)
+                    console.log('res', getAllAdvisorForUser.user[0])
+                    updateField({ allAdvisors: getAllAdvisorForUser.user })
                 }
                 // setLoading(false)
             })
@@ -45,6 +47,13 @@ const Home = (props) => {
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
     };
+
+    const updateField = (obj) => {
+        setState({
+            ...state,
+            ...obj
+        })
+    }
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
@@ -78,46 +87,30 @@ const Home = (props) => {
             />
             <ScrollView style={loginStyles.setFlex}>
                 <View style={homeStyles.viewStyle}>
-                    <View style={homeStyles.childStyle}>
-                        <Image
-                            style={homeStyles.tile}
-                            source={{ uri: dummyImage }}
-                        />
-                        <Text style={homeStyles.name}>Yasir Khan</Text>
-                        <Text style={homeStyles.ctgry}>Love & Career</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Rating
-                                imageSize={20}
-                                style={homeStyles.rating}
-                                startingValue={5}
-                            />
-                            <Text style={{ ...homeStyles.rating, marginLeft: 15 }}>5</Text>
-                        </View>
-                        {/* <Text style={{ marginLeft: -60, marginTop: 170, flexDirection: 'row' }}>1,123</Text>
+                    {state.allAdvisors.map((v, i) => {
+                        return (
+                            <View style={homeStyles.childStyle} key={i}>
+                                <Image
+                                    style={homeStyles.tile}
+                                    source={{ uri: dummyImage }}
+                                />
+                                <Text style={homeStyles.name}>{v.userName}</Text>
+                                <Text style={homeStyles.ctgry}>Love & Career</Text>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Rating
+                                        imageSize={20}
+                                        style={homeStyles.rating}
+                                        startingValue={5}
+                                    />
+                                    <Text style={{ ...homeStyles.rating, marginLeft: 15 }}>5</Text>
+                                </View>
+                                {/* <Text style={{ marginLeft: -60, marginTop: 170, flexDirection: 'row' }}>1,123</Text>
                             <Text style={{ marginLeft: -45, marginTop: 185, flexDirection: 'row' }}>Readings</Text>
                             <Text style={{ marginLeft: 30, marginTop: 170, flexDirection: 'row' }}>2020</Text>
                             <Text style={{ marginLeft: -35, marginTop: 185, flexDirection: 'row' }}>Year joined</Text> */}
-                    </View>
-                    <View style={homeStyles.childStyle}>
-                        <Image
-                            style={homeStyles.tile}
-                            source={{ uri: dummyImage }}
-                        />
-                        <Text style={homeStyles.name}>Yasir Khan</Text>
-                        <Text style={homeStyles.ctgry}>Love & Career</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Rating
-                                imageSize={20}
-                                style={homeStyles.rating}
-                                startingValue={5}
-                            />
-                            <Text style={{ ...homeStyles.rating, marginLeft: 15 }}>5</Text>
-                        </View>
-                        {/* <Text style={{ marginLeft: -60, marginTop: 170, flexDirection: 'row' }}>1,123</Text>
-                            <Text style={{ marginLeft: -45, marginTop: 185, flexDirection: 'row' }}>Readings</Text>
-                            <Text style={{ marginLeft: 30, marginTop: 170, flexDirection: 'row' }}>2020</Text>
-                            <Text style={{ marginLeft: -35, marginTop: 185, flexDirection: 'row' }}>Year joined</Text> */}
-                    </View>
+                            </View>
+                        )
+                    })}
                 </View>
             </ScrollView>
             <Modal

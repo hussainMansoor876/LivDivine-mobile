@@ -20,9 +20,7 @@ query{
     message, success, user {
       id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
         aboutService, aboutMe, isApproved
-
     }
-
   }
 }
 `
