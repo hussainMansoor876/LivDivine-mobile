@@ -127,6 +127,7 @@ const categoriesStyles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: 'rgba(0, 0, 0, 0.5)',
         height: '100%',
+        width: Screen.width / 2,
         margin: 3
     }
 })

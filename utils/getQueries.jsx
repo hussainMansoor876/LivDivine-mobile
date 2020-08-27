@@ -26,7 +26,21 @@ query{
 }
 `
 
+const GET_FILTER = gql`
+query($category: String, $orderType: String, $name: String){
+  getAllAdvisor(categoryName: $category, orderTypeName: $orderType,
+    advisorName: $name
+  ) {
+    message, success, user{
+      id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
+        aboutService, aboutMe, isApproved
+    }
+  }
+}
+`
+
 export {
-    GET_ADVISORS,
-    GET_ALL_ADVISORS
+  GET_ADVISORS,
+  GET_ALL_ADVISORS,
+  GET_FILTER
 }
