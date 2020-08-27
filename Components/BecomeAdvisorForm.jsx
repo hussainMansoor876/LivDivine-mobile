@@ -24,7 +24,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const BecomeAdvisorForm = (props) => {
     const { navigation } = props
-    // console.log('navigation', navigation.navigate('Home'))
     const user = useSelector(state => state.authReducer.user)
     const dispatch = useDispatch();
     const [photo, setPhoto] = useState(user.image === null ? null : user.image)
@@ -51,12 +50,10 @@ const BecomeAdvisorForm = (props) => {
     })
 
     const updateServer = (obj) => {
-        console.log('obj', obj)
         client.mutate({ variables: obj, mutation: BECOME_ADVISOR })
             .then((res) => {
                 updateField({ isLoading: false })
                 const { becomeAdvisor } = res.data
-                console.log('becomeAdvisor', becomeAdvisor)
                 if (becomeAdvisor.success) {
                     dispatch(loginUser(becomeAdvisor.user))
                     Alert.alert(
@@ -74,7 +71,6 @@ const BecomeAdvisorForm = (props) => {
             })
             .catch((e) => {
                 updateField({ isLoading: false })
-                console.log('e', e)
                 Alert.alert('Oops Something Went Wrong!')
             })
     }

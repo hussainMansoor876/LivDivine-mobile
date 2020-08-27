@@ -14,6 +14,20 @@ query($adminId: String!, $isApproved: Boolean!){
   }
 `
 
+const GET_ALL_ADVISORS = gql`
+query{
+  getAllAdvisorForUser {
+    message, success, user {
+      id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
+        aboutService, aboutMe, isApproved
+
+    }
+
+  }
+}
+`
+
 export {
-    GET_ADVISORS
+    GET_ADVISORS,
+    GET_ALL_ADVISORS
 }

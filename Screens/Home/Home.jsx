@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +10,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { appColor } from '../../utils/constant';
 import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
+import client from '../../Config/apollo'
+import { GET_ALL_ADVISORS } from '../../utils/getQueries'
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
@@ -23,6 +25,21 @@ const Home = (props) => {
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
         searchValue: ''
+    })
+
+    useEffect(() => {
+        client.query({ query: GET_ALL_ADVISORS })
+            .then((res) => {
+                const { getAllAdvisorForUser } = res.data
+                if (getAllAdvisorForUser?.user?.length) {
+                    console.log('res', getAllAdvisorForUser.user)
+                }
+                // setLoading(false)
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+                // setLoading(false)
+            })
     })
 
     const toggleModal = () => {
