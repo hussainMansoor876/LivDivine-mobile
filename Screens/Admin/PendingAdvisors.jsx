@@ -13,7 +13,7 @@ import client from '../../Config/apollo'
 const PendingAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, setLoading] = useState(true)
     const [updateList, setUpdateList] = useState(true)
     const [spin, setSpin] = useState(false)
     let [allAdvisors, setAllAdvisors] = useState([])

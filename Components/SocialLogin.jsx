@@ -72,6 +72,7 @@ const SocialLogin = (props) => {
                                         })
                                         .catch((e) => {
                                             updateField({ isLoading: false })
+                                            console.log('e', e)
                                             Alert.alert('Oops Something went Wrong!')
                                         })
                                 }

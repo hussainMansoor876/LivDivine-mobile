@@ -74,6 +74,7 @@ const BecomeAdvisorForm = (props) => {
             })
             .catch((e) => {
                 updateField({ isLoading: false })
+                console.log('e', e)
                 Alert.alert('Oops Something Went Wrong!')
             })
     }
@@ -161,11 +162,11 @@ const BecomeAdvisorForm = (props) => {
             }
         }
         else if (currentPosition === 1) {
-            if (!aboutService.length || aboutService.length < 4) {
-                return updateField({ aboutServiceErr: 'Minimum 4 Characters required!' })
+            if (!aboutService.length || aboutService.length < 10) {
+                return updateField({ aboutServiceErr: 'Minimum 10 Characters required!' })
             }
-            else if (!aboutMe.length || aboutMe.length < 4) {
-                return updateField({ aboutMeErr: 'Minimum 4 Characters required!' })
+            else if (!aboutMe.length || aboutMe.length < 10) {
+                return updateField({ aboutMeErr: 'Minimum 10 Characters required!' })
             }
         }
         else if (currentPosition === 2) {
@@ -218,7 +219,7 @@ const BecomeAdvisorForm = (props) => {
         const { userName, title, aboutMe, aboutService } = state
         const { id } = user
         var categories = Object.entries(categoriesData).filter(v => v[1]).map(v => v[0])
-        updateServer({ id, userName, title, image: photo, aboutService, aboutMe, categories, orderTypes: ordersData })
+        updateServer({ id, userName, title, image: photo, aboutService, aboutMe, categories, orderTypes: ordersData, video: uploadVideo })
     }
 
     const getObjLength = (obj) => Object.values(obj).filter(v => v).length

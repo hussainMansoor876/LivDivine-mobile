@@ -15,9 +15,9 @@ const SIGN_UP = gql`
 const LOGIN = gql`
 mutation($email: String!, $password: String!){
     signIn(login: $email, password: $password){
-      token, message, success,user {
+      token, message, success, user {
          id, userName, email, role, image, isVerified, isOnline, authType, title,
-        aboutService, aboutMe, isAdvisor, isApproved, videoThumbnail
+        aboutService, aboutMe, isAdvisor, isApproved, video
       }
     }
   }
@@ -32,10 +32,10 @@ mutation($email: String, $name: String!, $authType: String!, $id: String!, $imag
     authId: $id,
     image: $image
     ){
-     token, message, success, user{
-     id, userName, email, role, image, isVerified, isOnline, authType, title,
-      aboutService, aboutMe, isAdvisor, isApproved, videoThumbnail
-    }
+      token, message, success, user {
+        id, userName, email, role, image, isVerified, isOnline, authType, title,
+       aboutService, aboutMe, isAdvisor, isApproved, video
+     }
   }
 }
 `
@@ -45,7 +45,7 @@ mutation($id: String!, $userName: String, $photo: String){
   updateUser(id: $id, userName: $userName, image: $photo){
     token, message, success, user {
       id, userName, email, role, image, isVerified, isOnline, authType, title, image,
-        aboutService, aboutMe, isAdvisor, isApproved, videoThumbnail
+        aboutService, aboutMe, isAdvisor, isApproved, video
     }
   }
 }
@@ -56,14 +56,14 @@ mutation($id: String!, $currentPassword: String!, $password: String!){
   updatePassword(id: $id,currentPassword: $currentPassword, password: $password) {
     token, message, success, user {
       id, userName, email, role, image, isVerified, isOnline, authType, title, image,
-        aboutService, aboutMe, isAdvisor, isApproved, videoThumbnail
+        aboutService, aboutMe, isAdvisor, isApproved, video
     }
   }
 }
 `
 
 const BECOME_ADVISOR = gql`
-mutation($id: String, $userName: String!, $title: String!, $image: String!, $video: String!, $aboutService: String!, $aboutMe: String!, $categories: [String], $orderTypes: String!) {
+mutation($id: String, $userName: String!, $title: String!, $image: String!, $video: String!, $aboutService: String!, $aboutMe: String!, $categories: [String], $orderTypes:  [UserOrderTs]) {
   becomeAdvisor(id: $id,
     userName: $userName,
     title: $title,
@@ -80,7 +80,7 @@ mutation($id: String, $userName: String!, $title: String!, $image: String!, $vid
     ){
     token, message, success, user {
       id, userName, email, role, image, isVerified, isLogin, authType, title, image,
-        aboutService, aboutMe, videoThumbnail, 
+        aboutService, aboutMe, video, 
     }, categories{
       id, userName, categoryName, 
     },
