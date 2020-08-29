@@ -13,7 +13,7 @@ const Settings = (props) => {
     const dispatch = useDispatch();
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Header {...props} title="Advisor Settings" />
+            <Header {...props} title="Settings" />
             <ScrollView style={loginStyles.setFlex}>
                 <SettingsForm {...props} />
                 {user.authType === null ? <ChangePassword {...props} /> : null}
