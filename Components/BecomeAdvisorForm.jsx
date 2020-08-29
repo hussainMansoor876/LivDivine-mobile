@@ -193,29 +193,45 @@ const BecomeAdvisorForm = (props) => {
         }
     }
 
-    const uploadCloud = async () => {
-        if (photo.indexOf('https://res.cloudinary.com') === -1) {
-            await uploadFile(photo)
-                .then(response => response.json())
-                .then((result) => {
-                    setPhoto(result.secure_url)
-                })
-        }
-        if (uploadVideo.indexOf('https://res.cloudinary.com') === -1) {
-            await uploadVideoFile(uploadVideo)
-                .then(response => response.json())
-                .then((result) => {
-                    setUploadVideo(result.secure_url)
-                })
-        }
+    const uploadPhoto = async () => {
+        await uploadFile(photo)
+            .then(response => response.json())
+            .then((result) => {
+                return result.secure_url
+            })
+            .catch(() => false)
+    }
+
+    const uploadImage = async () => {
+        return await uploadFile(photo)
+            .then(response => response.json())
+            .then((result) => {
+                return result.secure_url
+            })
+            .catch(() => false)
+    }
+
+    const uploadVideoServer = async () => {
+        return await uploadVideoFile(uploadVideo)
+            .then(response => response.json())
+            .then((result) => {
+                return result.secure_url
+            })
+            .catch(() => false)
     }
 
     const registerAdvisor = async () => {
-        await uploadCloud()
+        const photoUrl = await uploadImage()
+        const videoUrl = await uploadVideoServer()
+        console.log('photo', photoUrl)
+        console.log('video', videoUrl)
+        if (!photoUrl || !videoUrl) {
+            return Alert.alert('Oops Something Went Wrong!')
+        }
         const { userName, title, aboutMe, aboutService } = state
         const { id } = user
         var categories = Object.entries(categoriesData).filter(v => v[1]).map(v => v[0])
-        updateServer({ id, userName, title, image: photo, aboutService, aboutMe, categories, orderTypes: ordersData, video: uploadVideo })
+        updateServer({ id, userName, title, image: photoUrl, aboutService, aboutMe, categories, orderTypes: ordersData, video: videoUrl })
     }
 
     const getObjLength = (obj) => Object.values(obj).filter(v => v).length
