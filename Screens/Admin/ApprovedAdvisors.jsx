@@ -48,7 +48,7 @@ const ApprovedAdvisors = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <View>
+            <ScrollView>
                 {
                     allAdvisors.map((item, i) => (
                         <ListItem
@@ -66,7 +66,7 @@ const ApprovedAdvisors = (props) => {
                         />
                     ))
                 }
-            </View>
+            </ScrollView>
             {isLoading && !allAdvisors.length ? <ActivityIndicator
                 color="rgba(0, 0, 0, 0.5)"
                 size="small"

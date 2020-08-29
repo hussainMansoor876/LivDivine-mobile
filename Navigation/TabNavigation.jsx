@@ -10,10 +10,10 @@ const Tab = createMaterialTopTabNavigator();
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* <Button
+      <Button
         title="Logout"
         buttonStyle={{ backgroundColor: appColor, alignSelf: 'flex-end', margin: 20, width: 120 }}
-      /> */}
+      />
       <NavigationContainer>
         <Tab.Navigator
         lazy={true}

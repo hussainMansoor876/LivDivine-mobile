@@ -65,30 +65,32 @@ const PendingAdvisors = (props) => {
                 textContent={'Loading...'}
                 textStyle={loginStyles.spinnerTextStyle}
             />
-            {allAdvisors.map((v, i) => {
-                return (
-                    <View key={i} style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, backgroundColor: '#fff', borderBottomColor: 'rgba(0, 0, 0, 0.5)', borderBottomWidth: 0.5, justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Image
-                                source={{ uri: v.image }}
-                                style={{ width: 50, height: 50, marginRight: 10, marginLeft: 10, borderRadius: 250 }}
-                            />
-                            <Text style={{ fontSize: 16, marginTop: 12 }}>{v.userName}</Text>
+            <ScrollView>
+                {allAdvisors.map((v, i) => {
+                    return (
+                        <View key={i} style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, backgroundColor: '#fff', borderBottomColor: 'rgba(0, 0, 0, 0.5)', borderBottomWidth: 0.5, justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Image
+                                    source={{ uri: v.image }}
+                                    style={{ width: 50, height: 50, marginRight: 10, marginLeft: 10, borderRadius: 250 }}
+                                />
+                                <Text style={{ fontSize: 16, marginTop: 12 }}>{v.userName}</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 150, marginRight: 10 }}>
+                                <Button
+                                    title="Approve"
+                                    onPress={() => updateStatus(v.id, true)}
+                                />
+                                <Button
+                                    title="Cancel"
+                                    onPress={() => updateStatus(v.id, false)}
+                                    buttonStyle={{ backgroundColor: '#d9534f' }}
+                                />
+                            </View>
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 150, marginRight: 10 }}>
-                            <Button
-                                title="Approve"
-                                onPress={() => updateStatus(v.id, true)}
-                            />
-                            <Button
-                                title="Cancel"
-                                onPress={() => updateStatus(v.id, false)}
-                                buttonStyle={{ backgroundColor: '#d9534f' }}
-                            />
-                        </View>
-                    </View>
-                )
-            })}
+                    )
+                })}
+            </ScrollView>
             {
                 isLoading && !allAdvisors.length ? <ActivityIndicator
                     color="rgba(0, 0, 0, 0.5)"
