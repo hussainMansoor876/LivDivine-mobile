@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text, Button, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { SettingsForm, ChangePassword } from '../../Components'
+import { SettingsForm, ChangePassword, Header } from '../../Components'
 import { loginStyles, settingsStyles } from '../../styles'
 
 
@@ -13,10 +13,8 @@ const Settings = (props) => {
     const dispatch = useDispatch();
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Header {...props} title="Advisor Settings" />
             <ScrollView style={loginStyles.setFlex}>
-                <View style={settingsStyles.header}>
-                    <Text h1 style={settingsStyles.fieldsbold}>ACCOUNT</Text>
-                </View>
                 <SettingsForm {...props} />
                 {user.authType === null ? <ChangePassword {...props} /> : null}
             </ScrollView>

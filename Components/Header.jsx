@@ -8,7 +8,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 
 const Header = (props) => {
-    const { navigation } = props
+    const { navigation, title } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const Header = (props) => {
                 color='#fff'
                 onPress={navigation.toggleDrawer}
             />
-            <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Home</Text>
+            <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>{title}</Text>
             <Text>&nbsp;</Text>
         </View>
     );

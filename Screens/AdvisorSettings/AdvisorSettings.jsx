@@ -25,7 +25,7 @@ const AdvisorSettings = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Header {...props} />
+            <Header {...props} title="Advisor Settings" />
             <ScrollView style={loginStyles.setFlex}>
                 {state.showOrder ? <OrderTypeUpdate
                     {...props}
