@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, Text, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { LoginForm, SocialLogin, SettingsForm, ChangePassword } from '../../Components'
+import { Header } from '../../Components'
 import { loginStyles, AdvisorStyles } from '../../styles'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
@@ -31,6 +30,7 @@ const AdvisorProfile = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Header {...props} title="Profile" />
             {showVideo ? <View style={{ height: Screen.height, backgroundColor: '#000' }}>
                 <TouchableOpacity onPress={() => setShowVideo(false)} style={AdvisorStyles.leftIcon}>
                     <Icon
