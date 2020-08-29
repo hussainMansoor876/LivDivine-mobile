@@ -12,12 +12,29 @@ const SIGN_UP = gql`
           }
         `;
 
+const GET_USER = gql`
+query($userId: ID!){
+  user(id: $userId){
+    id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
+      aboutService, aboutMe, categories{
+        id, categoryName
+      }, orderTypes{
+        id, userName, orderTypeName, subTitle, price, isActive
+      }
+  }
+}
+`
+
 const LOGIN = gql`
 mutation($email: String!, $password: String!){
     signIn(login: $email, password: $password){
       token, message, success, user {
          id, userName, email, role, image, isVerified, isOnline, authType, title,
-        aboutService, aboutMe, isAdvisor, isApproved, video
+        aboutService, aboutMe, isAdvisor, isApproved, video, categories{
+          id, categoryName
+        }, orderTypes{
+          id, userName, orderTypeName, subTitle, price, isActive
+        }
       }
     }
   }
@@ -34,7 +51,12 @@ mutation($email: String, $name: String!, $authType: String!, $id: String!, $imag
     ){
       token, message, success, user {
         id, userName, email, role, image, isVerified, isOnline, authType, title,
-       aboutService, aboutMe, isAdvisor, isApproved, video
+       aboutService, aboutMe, isAdvisor, isApproved, video, 
+       categories {
+        id, categoryName
+      }, orderTypes{
+        id, userName, orderTypeName, subTitle, price, isActive
+      }
      }
   }
 }
@@ -45,7 +67,11 @@ mutation($id: String!, $userName: String, $photo: String){
   updateUser(id: $id, userName: $userName, image: $photo){
     token, message, success, user {
       id, userName, email, role, image, isVerified, isOnline, authType, title, image,
-        aboutService, aboutMe, isAdvisor, isApproved, video
+        aboutService, aboutMe, isAdvisor, isApproved, video, categories{
+          id, categoryName
+        }, orderTypes{
+          id, userName, orderTypeName, subTitle, price, isActive
+        }
     }
   }
 }
@@ -56,7 +82,11 @@ mutation($id: String!, $currentPassword: String!, $password: String!){
   updatePassword(id: $id,currentPassword: $currentPassword, password: $password) {
     token, message, success, user {
       id, userName, email, role, image, isVerified, isOnline, authType, title, image,
-        aboutService, aboutMe, isAdvisor, isApproved, video
+        aboutService, aboutMe, isAdvisor, isApproved, video, categories{
+          id, categoryName
+        }, orderTypes{
+          id, userName, orderTypeName, subTitle, price, isActive
+        }
     }
   }
 }
@@ -97,5 +127,6 @@ export {
   SOCIAL_LOGIN,
   UPDATE_USER,
   UPDATE_PASSWORD,
-  BECOME_ADVISOR
+  BECOME_ADVISOR,
+  GET_USER
 }

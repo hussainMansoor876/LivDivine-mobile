@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
@@ -12,6 +12,7 @@ import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS } from '../../utils/getQueries'
+import { GET_USER } from '../../utils/authQueries'
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
@@ -20,7 +21,7 @@ const list = ['24-hour delivery', '1-hour delivery', 'Live video call', 'Live ch
 
 const Home = (props) => {
     const { navigation } = props
-    const user = useSelector(state => state.authReducer.user);
+    const userData = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
@@ -29,6 +30,18 @@ const Home = (props) => {
     })
 
     useEffect(() => {
+        client.query({ variables: { userId: userData.id }, query: GET_USER })
+            .then((res) => {
+                const { user } = res.data
+                console.log('user', user)
+                // if (getAllAdvisorForUser?.user?.length) {
+                //     updateField({ allAdvisors: getAllAdvisorForUser.user })
+                // }
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+                // setLoading(false)
+            })
         client.query({ query: GET_ALL_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
