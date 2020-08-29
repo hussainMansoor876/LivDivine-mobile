@@ -223,8 +223,6 @@ const BecomeAdvisorForm = (props) => {
     const registerAdvisor = async () => {
         const photoUrl = await uploadImage()
         const videoUrl = await uploadVideoServer()
-        console.log('photo', photoUrl)
-        console.log('video', videoUrl)
         if (!photoUrl || !videoUrl) {
             return Alert.alert('Oops Something Went Wrong!')
         }
