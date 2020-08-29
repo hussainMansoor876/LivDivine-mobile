@@ -1,8 +1,7 @@
 import React, { useState, createRef } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
-import { Icon, Input, Button } from 'react-native-elements'
+import { ListItem } from 'react-native-elements'
 import { loginStyles } from '../styles'
 import { categoriesArray } from '../utils/constant'
 
@@ -12,6 +11,8 @@ const CategoriesUpdate = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const [categoriesData, setCategories] = useState({})
     const dispatch = useDispatch();
+
+    const getObjLength = (obj) => Object.values(obj).filter(v => v).length
 
     const updateCategories = (obj) => {
         if (Object.values(obj)[0] && getObjLength(categoriesData) >= 3) {
