@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, Text, Image, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { BecomeAdvisorForm } from '../../Components'
+import { BecomeAdvisorForm, Header } from '../../Components'
 import { loginStyles } from '../../styles'
 
 const logo = require('../../assets/logo.png')
@@ -16,6 +16,7 @@ const BecomeAdvisor = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Header {...props} title="Become Advisor" />
             <ScrollView style={loginStyles.setFlex}>
                 {/* <Image
                     source={logo}

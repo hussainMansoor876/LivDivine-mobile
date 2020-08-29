@@ -7,6 +7,7 @@ import ChangePassword from './ChangePassword'
 import BecomeAdvisorForm from './BecomeAdvisorForm'
 import ASettingsForm from './ASettingsForm'
 import OrderTypeUpdate from './OrderTypeUpdate'
+import CategoriesUpdate from './CategoriesUpdate'
 
 export {
     LoginForm,
@@ -17,5 +18,6 @@ export {
     ChangePassword,
     BecomeAdvisorForm,
     ASettingsForm,
-    OrderTypeUpdate
+    OrderTypeUpdate,
+    CategoriesUpdate
 }
