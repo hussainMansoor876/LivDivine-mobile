@@ -79,8 +79,8 @@ const AdvisorProfile = (props) => {
                         return (
                             <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
                                 <View style={AdvisorStyles.orderView}>
-                                    <Text style={AdvisorStyles.orderText}>{v.title}</Text>
-                                    <Text style={AdvisorStyles.titleColor}>{v.subtitle}</Text>
+                                    <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
+                                    <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
                                 </View>
                                 <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
                             </View>
