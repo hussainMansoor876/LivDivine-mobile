@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { LoginForm, SocialLogin } from '../../Components'
+import { Header } from '../../Components'
 import { loginStyles, categoriesStyles, AdvisorStyles } from '../../styles'
 import categoriesData from '../../utils/categoriesData'
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -54,21 +53,7 @@ const Categories = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <View style={AdvisorStyles.headerView}>
-                <FeatherIcon
-                    name='menu'
-                    size={30}
-                    color='#fff'
-                    onPress={navigation.toggleDrawer}
-                />
-                <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Categories</Text>
-                {state.category.length ? <FontAwesomeIcon
-                    name="filter"
-                    size={30}
-                    color="#fff"
-                    onPress={toggleModal}
-                /> : <Text>&nbsp;</Text>}
-            </View>
+            <Header {...props} title="Categories" />
             <ScrollView style={loginStyles.setFlex}>
                 {categoriesData.map((v, i) => {
                     return (

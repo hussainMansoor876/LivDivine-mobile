@@ -125,7 +125,7 @@ const categoriesStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 0.5,
-        borderColor: 'rgba(0, 0, 0, 0.5)',
+        borderColor: 'rgba(0, 0, 0, 0.3)',
         height: '100%',
         width: Screen.width / 2,
         margin: 3
