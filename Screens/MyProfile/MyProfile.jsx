@@ -10,7 +10,7 @@ import Screen from '../../utils/ScreenDimensions'
 import { orderTypes, appColor } from '../../utils/constant'
 
 
-const AdvisorProfile = (props) => {
+const MyProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
     console.log('user', user.orderTypes)
     const dispatch = useDispatch()
@@ -106,4 +106,4 @@ const AdvisorProfile = (props) => {
     );
 };
 
-export default AdvisorProfile;
+export default MyProfile;

@@ -9,6 +9,7 @@ import Settings from './Settings/Settings'
 import BecomeAdvisor from './BecomeAdvisor/BecomeAdvisor'
 import AdvisorProfile from './AdvisorProfile/AdvisorProfile'
 import AdvisorSettings from './AdvisorSettings/AdvisorSettings'
+import MyProfile from './MyProfile/MyProfile'
 
 export {
     Login,
@@ -21,5 +22,6 @@ export {
     Settings,
     BecomeAdvisor,
     AdvisorProfile,
-    AdvisorSettings
+    AdvisorSettings,
+    MyProfile
 }

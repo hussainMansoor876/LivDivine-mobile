@@ -112,7 +112,7 @@ const userData = [
 const advisorData = [
     {
         name: "My Profile",
-        route: "AdvisorProfile",
+        route: "MyProfile",
         icon: "user",
         bg: "#C5F442"
     },
