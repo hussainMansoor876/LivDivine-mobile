@@ -7,12 +7,12 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
-import { orderTypes, appColor } from '../../utils/constant'
 
 
 const MyProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
-    console.log('user', user.orderTypes)
+    const { orderTypes, categories } = user
+    console.log(categories)
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
@@ -31,7 +31,7 @@ const MyProfile = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Header {...props} title="Profile" />
+            <Header {...props} title="My Profile" />
             {showVideo ? <View style={{ height: Screen.height, backgroundColor: '#000' }}>
                 <TouchableOpacity onPress={() => setShowVideo(false)} style={AdvisorStyles.leftIcon}>
                     <Icon
@@ -76,6 +76,7 @@ const MyProfile = (props) => {
                             <Text>{user.title}</Text>
                         </View>
                     </View>
+                    <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold', marginLeft: 10, fontSize: 18 }}>My Orders</Text>
                     {orderTypes.map((v, i) => {
                         return (
                             <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
@@ -83,23 +84,23 @@ const MyProfile = (props) => {
                                     <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
                                     <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
                                 </View>
-                                <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
+                                <Text>$ {v.price} {v.orderTypeName.toLowerCase().indexOf('live') !== -1 ? '/ min' : null}</Text>
                             </View>
                         )
                     })}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT MY SERVICES</Text>
-                        <Text style={AdvisorStyles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <Text style={AdvisorStyles.aboutText}>{user.aboutService}
                         </Text>
                     </View>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT ME</Text>
-                        <Text style={AdvisorStyles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                        <Text style={AdvisorStyles.aboutText}>{user.aboutMe}
                         </Text>
                     </View>
-                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
+                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column', paddingBottom: 20 }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>CATEGORIES</Text>
-                        <Text style={AdvisorStyles.aboutText}>Relationship coaching psychic</Text>
+                        <Text style={AdvisorStyles.aboutText}>{categories.map(v => v.categoryName).join(', ')}</Text>
                     </View>
                 </ScrollView>}
         </SafeAreaView>
