@@ -15,8 +15,8 @@ query($adminId: String!, $isApproved: Boolean!){
 `
 
 const GET_ALL_ADVISORS = gql`
-query{
-  getAllAdvisorForUser {
+query($userId: String!){
+  getAllAdvisorForUser(userId: $userId) {
     message, success, user {
       id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
         aboutService, aboutMe, isApproved

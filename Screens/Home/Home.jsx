@@ -21,7 +21,7 @@ const list = ['24-hour delivery', '1-hour delivery', 'Live video call', 'Live ch
 
 const Home = (props) => {
     const { navigation } = props
-    const userData = useSelector(state => state.authReducer.user);
+    const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
@@ -30,19 +30,20 @@ const Home = (props) => {
     })
 
     useEffect(() => {
-        client.query({ variables: { userId: userData.id }, query: GET_USER })
+        client.query({ variables: { userId: user.id }, query: GET_USER })
             .then((res) => {
-                const { user } = res.data
-                console.log('user', user)
-                // if (getAllAdvisorForUser?.user?.length) {
-                //     updateField({ allAdvisors: getAllAdvisorForUser.user })
-                // }
+                const { data } = res
+                if (data?.user) {
+                    dispatch(loginUser(data.user))
+                }
+                else {
+                    dispatch(removeUser())
+                }
             })
             .catch((e) => {
-                Alert.alert('Oops Something Went Wrong!')
-                // setLoading(false)
+                dispatch(removeUser())
             })
-        client.query({ query: GET_ALL_ADVISORS })
+        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
                 if (getAllAdvisorForUser?.user?.length) {
@@ -51,7 +52,6 @@ const Home = (props) => {
             })
             .catch((e) => {
                 Alert.alert('Oops Something Went Wrong!')
-                // setLoading(false)
             })
     }, [])
 
