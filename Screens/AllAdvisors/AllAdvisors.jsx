@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
@@ -12,13 +12,14 @@ import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS } from '../../utils/getQueries'
+import { GET_USER } from '../../utils/authQueries'
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
 
 const list = ['24-hour delivery', '1-hour delivery', 'Live video call', 'Live chat', 'Live voice call', 'Live chat', 'Currently offline', 'All advisors']
 
-const AllAdvisors = (props) => {
+const allAdvisors = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
@@ -29,7 +30,20 @@ const AllAdvisors = (props) => {
     })
 
     useEffect(() => {
-        client.query({ query: GET_ALL_ADVISORS })
+        client.query({ variables: { userId: user.id }, query: GET_USER })
+            .then((res) => {
+                const { data } = res
+                if (data?.user) {
+                    dispatch(loginUser(data.user))
+                }
+                else {
+                    dispatch(removeUser())
+                }
+            })
+            .catch((e) => {
+                dispatch(removeUser())
+            })
+        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
                 if (getAllAdvisorForUser?.user?.length) {
@@ -38,7 +52,6 @@ const AllAdvisors = (props) => {
             })
             .catch((e) => {
                 Alert.alert('Oops Something Went Wrong!')
-                // setLoading(false)
             })
     }, [])
 
@@ -152,4 +165,4 @@ const AllAdvisors = (props) => {
     );
 };
 
-export default AllAdvisors;
+export default allAdvisors;
