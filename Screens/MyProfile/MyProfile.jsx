@@ -78,15 +78,16 @@ const MyProfile = (props) => {
                     </View>
                     <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold', marginLeft: 10, fontSize: 18 }}>My Orders</Text>
                     {orderTypes.map((v, i) => {
-                        return (
-                            <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
-                                <View style={AdvisorStyles.orderView}>
-                                    <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
-                                    <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
+                        if (v.isActive)
+                            return (
+                                <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
+                                    <View style={AdvisorStyles.orderView}>
+                                        <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
+                                        <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
+                                    </View>
+                                    <Text>$ {v.price} {v.orderTypeName.toLowerCase().indexOf('live') !== -1 ? '/ min' : null}</Text>
                                 </View>
-                                <Text>$ {v.price} {v.orderTypeName.toLowerCase().indexOf('live') !== -1 ? '/ min' : null}</Text>
-                            </View>
-                        )
+                            )
                     })}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT MY SERVICES</Text>
