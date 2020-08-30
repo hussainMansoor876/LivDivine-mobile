@@ -7,18 +7,18 @@ import client from '../Config/apollo'
 import { loginStyles, settingsStyles } from '../styles'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { UPDATE_PASSWORD } from '../utils/authQueries'
-import { orderTypesCopy, appColor, roundToTwo } from '../utils/constant';
+import { appColor, roundToTwo } from '../utils/constant';
 import Screen from '../utils/ScreenDimensions'
+import { UPDATE_ORDERS } from '../utils/updateMutations'
 import Slider from 'react-native-slider'
 
 const SettingsForm = (props) => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.authReducer.user);
-    let [orderTypes, setOrdertypes] = useState(orderTypesCopy)
+    let user = useSelector(state => state.authReducer.user);
+    let { orderTypes } = user
     const [orderUpdate, setOrderUpdate] = useState(false)
     const [state, setState] = useState({
-        isLoading: false,
-        sliderValue: 0.5
+        isLoading: false
     })
 
     const updateServer = (obj) => {
@@ -69,9 +69,38 @@ const SettingsForm = (props) => {
         // setOrdertypes(orderTypes)
     }
 
-    const updateActive = (i) =>{
+    const updateActive = (i) => {
         orderTypes[i].isActive = !orderTypes[i].isActive
         setOrderUpdate(!orderUpdate)
+    }
+
+    const updateOrdersData = () => {
+        updateField({ isLoading: true })
+        var orderTypeCopy = []
+        for (var i of orderTypes) {
+            delete i.__typename
+            orderTypeCopy.push(i)
+        }
+
+        client.mutate({ variables: { userId: user.id, userOrderTypes: orderTypeCopy }, mutation: UPDATE_ORDERS })
+            .then((res) => {
+                updateField({ isLoading: false })
+                const { updateUserOrderTypes } = res.data
+                user.orderTypes = updateUserOrderTypes.result
+                dispatch(loginUser(user))
+                if (updateUserOrderTypes.success) {
+                    user.orderTypes = updateUserOrderTypes.result
+                    dispatch(loginUser(user))
+                    Alert.alert('Successfully Update Orders!')
+                }
+                else {
+                    Alert.alert(updatePassword.message)
+                }
+            })
+            .catch((e) => {
+                updateField({ isLoading: false })
+                Alert.alert('Oops Something Went Wrong!')
+            })
     }
 
     return (
@@ -94,7 +123,7 @@ const SettingsForm = (props) => {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={{ fontSize: 20, letterSpacing: 1.2, marginTop: 10 }}>{v.orderTypeName}</Text>
                                 <CheckBox
-                                    title="Activate"
+                                    title={v.isActive ? 'Activated' : 'Activate'}
                                     checked={v.isActive}
                                     onPress={() => updateActive(i)}
                                 />
@@ -119,6 +148,7 @@ const SettingsForm = (props) => {
             <Button
                 title="UPDATE ORDERS"
                 buttonStyle={loginStyles.loginBtn}
+                onPress={updateOrdersData}
             />
         </View>
     );

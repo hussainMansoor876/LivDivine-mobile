@@ -7,12 +7,12 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
+import { roundToTwo } from '../../utils/constant'
 
 
 const MyProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const { orderTypes, categories } = user
-    console.log(categories)
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
@@ -85,7 +85,7 @@ const MyProfile = (props) => {
                                         <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
                                         <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
                                     </View>
-                                    <Text>$ {v.price} {v.orderTypeName.toLowerCase().indexOf('live') !== -1 ? '/ min' : null}</Text>
+                                    <Text>$ {roundToTwo(v.price)} {v.orderTypeName.toLowerCase().indexOf('live') !== -1 ? '/ min' : null}</Text>
                                 </View>
                             )
                     })}

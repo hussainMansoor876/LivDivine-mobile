@@ -14,6 +14,17 @@ mutation($userId: String!, $adminId: String!, $status: Boolean!){
   }
 `
 
+const UPDATE_ORDERS = gql`
+mutation($userId: String!, $userOrderTypes: [UserOrderTypesss]!){
+  updateUserOrderTypes(userId: $userId, userOrderTypes: $userOrderTypes){
+    result {
+      id, userName, orderTypeName, price, isActive
+    }, success
+  }
+}
+`
+
 export {
-    UPDATE_STATUS
+  UPDATE_STATUS,
+  UPDATE_ORDERS
 }
