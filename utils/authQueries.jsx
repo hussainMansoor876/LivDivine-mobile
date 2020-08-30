@@ -16,7 +16,7 @@ const GET_USER = gql`
 query($userId: ID!){
   user(id: $userId){
     id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
-      aboutService, aboutMe, categories{
+      aboutService, aboutMe, isAdvisor, isApproved,video, categories{
         id, categoryName
       }, orderTypes{
         id, userName, orderTypeName, subTitle, price, isActive

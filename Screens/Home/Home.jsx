@@ -34,6 +34,7 @@ const Home = (props) => {
             .then((res) => {
                 const { data } = res
                 if (data?.user) {
+                    console.log('data.user', data.user.isApproved)
                     dispatch(loginUser(data.user))
                 }
                 else {
