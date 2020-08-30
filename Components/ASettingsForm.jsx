@@ -17,8 +17,14 @@ const ASettingsForm = (props) => {
     const [state, setState] = useState({
         userName: user.userName,
         userNameErr: '',
-        isLoading: false,
-        photo: user.image ? user.image : null
+        title: user.title,
+        titleErr: '',
+        aboutService: user.aboutService,
+        aboutServiceErr: '',
+        aboutMe: user.aboutMe,
+        aboutMeErr: '',
+        photo: user.image ? user.image : null,
+        isLoading: false
     })
 
 
@@ -40,10 +46,19 @@ const ASettingsForm = (props) => {
 
 
     const updateSetting = async () => {
-        const { userName, photo } = state
+        const { userName, photo, title, aboutMe, aboutService } = state
         const { id } = user
         if (!userName.length || userName.length < 4) {
             return updateField({ userNameErr: 'Minimum 4 Characters required!' })
+        }
+        if (!title.length || title.length < 4) {
+            return updateField({ titleErr: 'Minimum 4 Characters required!' })
+        }
+        if (!aboutService.length || aboutService.length < 10) {
+            return updateField({ aboutServiceErr: 'Minimum 10 Characters required!' })
+        }
+        if (!aboutMe.length || aboutMe.length < 10) {
+            return updateField({ aboutMeErr: 'Minimum 10 Characters required!' })
         }
         updateField({ isLoading: true })
         if (photo !== null) {
@@ -51,8 +66,8 @@ const ASettingsForm = (props) => {
                 uploadFile(photo)
                     .then(response => response.json())
                     .then((result) => {
-                        updateServer({ id, userName, photo: result.secure_url })
-                        updateField({ photo: result.secure_url, isLoading: false })
+                        updateServer({ id, userName, photo: result.secure_url, title, aboutMe, aboutService })
+                        updateField({ photo: result.secure_url })
                     })
                     .catch((e) => {
                         Alert.alert('Oops Something Went Wrong!')
@@ -60,13 +75,12 @@ const ASettingsForm = (props) => {
                     })
             }
             else {
-                updateServer({ id, userName })
-                updateField({ isLoading: false })
+                updateServer({ id, userName, title, aboutMe, aboutService })
             }
 
         }
         else {
-            updateServer({ id, userName })
+            updateServer({ id, userName, title, aboutMe, aboutService })
         }
     }
 
@@ -138,11 +152,11 @@ const ASettingsForm = (props) => {
             />
             <Input
                 placeholder="Title"
-                inputContainerStyle={{ ...loginStyles.inputLogin, borderColor: state.userNameErr ? 'red' : '#000000' }}
-                onChangeText={e => updateField({ userName: e })}
-                value={state.userName}
-                errorMessage={state.userNameErr}
-                onFocus={() => updateField({ emailErr: '' })}
+                inputContainerStyle={{ ...loginStyles.inputLogin, borderColor: state.titleErr ? 'red' : '#000000' }}
+                onChangeText={e => updateField({ title: e })}
+                value={state.title}
+                errorMessage={state.titleErr}
+                onFocus={() => updateField({ titleErr: '' })}
                 leftIcon={
                     <FontIcon
                         name='user'
