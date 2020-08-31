@@ -23,7 +23,7 @@ const AdvisorProfile = (props) => {
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
     const [showVideo, setShowVideo] = useState(false)
-    const liked = true
+    const [liked, setLiked] = useState(false)
 
     const updateLoading = (e) => {
         if (currentTime === e.currentTime) {
@@ -37,7 +37,7 @@ const AdvisorProfile = (props) => {
     }
 
     const handleOnPressLike = async () => {
-        console.log('smallAnimatedIcon', smallAnimatedIcon)
+        setLiked(!liked)
         smallAnimatedIcon.current.bounceIn()
     }
 
@@ -45,10 +45,10 @@ const AdvisorProfile = (props) => {
         <SafeAreaView style={loginStyles.setFlex}>
             <View style={AdvisorStyles.headerView}>
                 <FeatherIcon
-                    name='menu'
+                    name='arrow-left'
                     size={30}
                     color='#fff'
-                    onPress={navigation.toggleDrawer}
+                    onPress={hideAdvisor}
                 />
                 <Text style={{ color: '#fff', fontSize: 20, alignSelf: 'center' }}>{advisor.userName.split(' ')[0]}</Text>
                 <TouchableOpacity
