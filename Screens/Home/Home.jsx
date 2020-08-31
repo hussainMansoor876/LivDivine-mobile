@@ -28,6 +28,19 @@ const Home = (props) => {
         filterValue: ''
     })
 
+    const getAll = () => {
+        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
+            .then((res) => {
+                const { getAllAdvisorForUser } = res.data
+                if (getAllAdvisorForUser?.user?.length) {
+                    updateField({ allAdvisors: getAllAdvisorForUser.user })
+                }
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+            })
+    }
+
     useEffect(() => {
         client.query({ variables: { userId: user.id }, query: GET_USER })
             .then((res) => {
@@ -42,16 +55,7 @@ const Home = (props) => {
             .catch((e) => {
                 dispatch(removeUser())
             })
-        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
-            .then((res) => {
-                const { getAllAdvisorForUser } = res.data
-                if (getAllAdvisorForUser?.user?.length) {
-                    updateField({ allAdvisors: getAllAdvisorForUser.user })
-                }
-            })
-            .catch((e) => {
-                Alert.alert('Oops Something Went Wrong!')
-            })
+        getAll()
     }, [])
 
     const toggleModal = () => {
@@ -126,6 +130,7 @@ const Home = (props) => {
                 onSubmitEditing={updateSearch}
                 round
                 color="#000000"
+                onClear={getAll}
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
             />
