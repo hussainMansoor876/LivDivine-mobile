@@ -15,11 +15,6 @@ import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
 import { AdvisorProfile } from '../../Screens'
 
-
-const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
-
-const list = ['24-hour delivery', '1-hour delivery', 'Live video call', 'Live chat', 'Live voice call', 'Live chat', 'Currently offline', 'All advisors']
-
 const Home = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user);
@@ -79,13 +74,16 @@ const Home = (props) => {
     const applyFilters = (obj) => {
         client.query({ variables: obj, query: APPLY_FILTER })
             .then((res) => {
-                // const { getAllAdvisor } = res.data
-                console.log('getAllAdvisor', res.data)
+                const { getAllAdvisor } = res.data
+                if (getAllAdvisor.success) {
+                    updateField({ allAdvisors: getAllAdvisor.user })
+                }
+                else {
+                    updateField({ allAdvisors: [] })
+                }
             })
             .catch((e) => {
                 Alert.alert('Oops Something Went Wrong!')
-                console.log('e', e)
-                // setLoading(false)
             })
     }
 
@@ -93,6 +91,7 @@ const Home = (props) => {
         const { searchValue } = state
         updateField({ filterValue: val })
         applyFilters({ userId: user.id, orderType: val, name: searchValue })
+        setModalVisible(!isModalVisible)
     }
 
     const updateSearch = () => {
