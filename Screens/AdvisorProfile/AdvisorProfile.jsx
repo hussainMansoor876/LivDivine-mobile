@@ -7,14 +7,15 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
-import { appColor, orderTypes } from '../../utils/constant'
+import { appColor } from '../../utils/constant'
+import { roundToTwo } from '../../utils/constant'
 
 
 const AdvisorProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const { hideAdvisor, advisor } = props
     const { categories, orderTypes } = advisor
-    console.log(orderTypes)
+    console.log('orderTypes', orderTypes)
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
@@ -86,7 +87,7 @@ const AdvisorProfile = (props) => {
                                         <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
                                         <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
                                     </View>
-                                    <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
+                                    <Button title={`$ ${roundToTwo(v.price)} ${v.orderTypeName.toLowerCase().indexOf('live') !== -1 ? '/ min' : ''}`} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
                                 </View>
                             )
                     })}
