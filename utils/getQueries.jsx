@@ -6,10 +6,8 @@ query($adminId: String!, $isApproved: Boolean!){
     getAllAdvisorForAdmin(userId: $adminId, isApproved: $isApproved) {
       message, success, user {
         id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
-          aboutService, aboutMe, isApproved
-  
+          aboutService, aboutMe, isApproved  
       }
-  
     }
   }
 `
@@ -19,9 +17,12 @@ query($userId: String!){
   getAllAdvisorForUser(userId: $userId) {
     message, success, user {
       id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
-        aboutService, aboutMe, isApproved
+        aboutService, aboutMe, isApproved, categories {
+        id, categoryName
+      }, orderTypes {
+        id, orderTypeName, subTitle, price, isActive
+      }
     }
-
   }
 }
 `

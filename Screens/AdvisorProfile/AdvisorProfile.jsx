@@ -7,12 +7,14 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
 import Video from 'react-native-video';
 import Screen from '../../utils/ScreenDimensions'
-import { orderTypes, appColor } from '../../utils/constant'
+import { appColor, orderTypes } from '../../utils/constant'
 
 
 const AdvisorProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const { hideAdvisor, advisor } = props
+    const { categories, orderTypes } = advisor
+    console.log(orderTypes)
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
@@ -77,15 +79,16 @@ const AdvisorProfile = (props) => {
                         </View>
                     </View>
                     {orderTypes.map((v, i) => {
-                        return (
-                            <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
-                                <View style={AdvisorStyles.orderView}>
-                                    <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
-                                    <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
+                        if (v.isActive)
+                            return (
+                                <View key={i} style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.5)', borderTopWidth: 0.5, justifyContent: 'space-between', paddingBottom: 10 }}>
+                                    <View style={AdvisorStyles.orderView}>
+                                        <Text style={AdvisorStyles.orderText}>{v.orderTypeName}</Text>
+                                        <Text style={AdvisorStyles.titleColor}>{v.subTitle}</Text>
+                                    </View>
+                                    <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
                                 </View>
-                                <Button title={v.orderPrice} containerStyle={{ width: 105 }} buttonStyle={{ backgroundColor: appColor }} />
-                            </View>
-                        )
+                            )
                     })}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT MY SERVICES</Text>
@@ -97,7 +100,7 @@ const AdvisorProfile = (props) => {
                     </View>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column', marginBottom: 20 }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>CATEGORIES</Text>
-                        <Text style={AdvisorStyles.aboutText}>Relationship coaching psychic</Text>
+                        <Text style={AdvisorStyles.aboutText}>{categories.map(v => v.categoryName).join(', ')}</Text>
                     </View>
                 </ScrollView>}
         </SafeAreaView>
