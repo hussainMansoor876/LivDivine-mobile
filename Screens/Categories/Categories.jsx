@@ -7,7 +7,7 @@ import categoriesData from '../../utils/categoriesData'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import client from '../../Config/apollo'
-import { GET_FILTER } from '../../utils/getQueries'
+import { APPLY_FILTER } from '../../utils/getQueries'
 
 
 
@@ -40,12 +40,13 @@ const Categories = (props) => {
 
     const searchData = () => {
         const { category } = state
-        client.query({ variables: { category }, query: GET_FILTER })
+        client.query({ variables: { category }, query: APPLY_FILTER })
             .then((res) => {
-                const { getAllAdvisor } = res.data
-                console.log('getAllAdvisor', getAllAdvisor.user)
+                // const { getAllAdvisor } = res.data
+                console.log('getAllAdvisor', res.data)
             })
             .catch((e) => {
+                console.log('e', e)
                 Alert.alert('Oops Something Went Wrong!')
                 // setLoading(false)
             })

@@ -27,14 +27,17 @@ query($userId: String!){
 }
 `
 
-const GET_FILTER = gql`
-query($category: String, $orderType: String, $name: String){
-  getAllAdvisor(categoryName: $category, orderTypeName: $orderType,
-    advisorName: $name
+const APPLY_FILTER = gql`
+query($userId: String!, $category: String, $orderType: String, $name: String) {
+  getAllAdvisor(userId: $userId, categoryName: $category, orderTypeName: $orderType, advisorName: $name
   ) {
     message, success, user{
       id, userName, email, authId, role, image, isVerified, isLogin, authType, title, image,
-        aboutService, aboutMe, isApproved
+        aboutService, aboutMe, isApproved, categories{
+        id, categoryName
+      }, orderTypes{
+        id, orderTypeName, subTitle, price, isActive
+      }
     }
   }
 }
@@ -43,5 +46,5 @@ query($category: String, $orderType: String, $name: String){
 export {
   GET_ADVISORS,
   GET_ALL_ADVISORS,
-  GET_FILTER
+  APPLY_FILTER
 }

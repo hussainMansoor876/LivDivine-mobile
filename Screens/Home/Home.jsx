@@ -7,11 +7,11 @@ import { LoginForm, SocialLogin } from '../../Components'
 import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { appColor } from '../../utils/constant';
+import { appColor, orderTypes } from '../../utils/constant';
 import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
-import { GET_ALL_ADVISORS } from '../../utils/getQueries'
+import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
 import { AdvisorProfile } from '../../Screens'
 
@@ -29,7 +29,8 @@ const Home = (props) => {
         searchValue: '',
         allAdvisors: [],
         showAdvisor: false,
-        selectedAdvisor: {}
+        selectedAdvisor: {},
+        filterValue: ''
     })
 
     useEffect(() => {
@@ -37,7 +38,6 @@ const Home = (props) => {
             .then((res) => {
                 const { data } = res
                 if (data?.user) {
-                    console.log('data.user', data.user.isApproved)
                     dispatch(loginUser(data.user))
                 }
                 else {
@@ -76,6 +76,30 @@ const Home = (props) => {
         )
     }
 
+    const applyFilters = (obj) => {
+        client.query({ variables: obj, query: APPLY_FILTER })
+            .then((res) => {
+                // const { getAllAdvisor } = res.data
+                console.log('getAllAdvisor', res.data)
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+                console.log('e', e)
+                // setLoading(false)
+            })
+    }
+
+    const updateModal = (val) => {
+        const { searchValue } = state
+        updateField({ filterValue: val })
+        applyFilters({ userId: user.id, orderType: val, name: searchValue })
+    }
+
+    const updateSearch = () => {
+        const { searchValue, filterValue } = state
+        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue })
+    }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <View style={AdvisorStyles.headerView}>
@@ -100,7 +124,7 @@ const Home = (props) => {
                 // placeholderTextColor="#fff"
                 lightTheme
                 inputStyle={{ backgroundColor: '#fff' }}
-                onSubmitEditing={(e) => console.log('******')}
+                onSubmitEditing={updateSearch}
                 round
                 color="#000000"
                 containerStyle={{ backgroundColor: appColor }}
@@ -159,13 +183,13 @@ const Home = (props) => {
                         </TouchableOpacity>
                     </View>
                     {
-                        list.map((v, i) => (
+                        orderTypes.map((v, i) => (
                             <ListItem
                                 key={i}
                                 title={
                                     <View style={{ width: '100%' }}>
-                                        <TouchableOpacity onPress={() => console.log('Hello')}>
-                                            <Text style={{ textAlign: 'center', fontSize: 20 }}>{v}</Text>
+                                        <TouchableOpacity onPress={() => updateModal(v.orderTypeName)} >
+                                            <Text style={{ textAlign: 'center', fontSize: 20 }}>{v.orderTypeName}</Text>
                                         </TouchableOpacity>
                                     </View>
                                 }
