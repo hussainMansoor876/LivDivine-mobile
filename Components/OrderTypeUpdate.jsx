@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, Alert } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
-import { Input, Button, Icon, CheckBox } from 'react-native-elements'
+import { loginUser } from '../Redux/actions/authActions';
+import { Button, CheckBox } from 'react-native-elements'
 import client from '../Config/apollo'
 import { loginStyles, settingsStyles } from '../styles'
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -86,8 +86,6 @@ const SettingsForm = (props) => {
             .then((res) => {
                 updateField({ isLoading: false })
                 const { updateUserOrderTypes } = res.data
-                user.orderTypes = updateUserOrderTypes.result
-                dispatch(loginUser(user))
                 if (updateUserOrderTypes.success) {
                     user.orderTypes = updateUserOrderTypes.result
                     dispatch(loginUser(user))

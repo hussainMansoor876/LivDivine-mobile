@@ -24,7 +24,19 @@ mutation($userId: String!, $userOrderTypes: [UserOrderTypesss]!){
 }
 `
 
+const UPDATE_CATEGORIES = gql`
+mutation($userId: String!, $userCategories: [String]!){
+  updateUserCategories(userId: $userId,
+    userCategories: $userCategories) {
+    result {
+      id, userId, userName, categoryName
+    }, success
+  }
+}
+`
+
 export {
   UPDATE_STATUS,
-  UPDATE_ORDERS
+  UPDATE_ORDERS,
+  UPDATE_CATEGORIES
 }
