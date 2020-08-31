@@ -12,7 +12,7 @@ import { orderTypes, appColor } from '../../utils/constant'
 
 const AdvisorProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
-    console.log('user', user.orderTypes)
+    const { hideAdvisor, advisor } = props
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
@@ -49,7 +49,7 @@ const AdvisorProfile = (props) => {
                     />
                 </View> : null}
                 <Video
-                    source={{ uri: user.video }}
+                    source={{ uri: advisor.video }}
                     style={{ marginTop: Screen.height / 4, height: Screen.height / 2, width: Screen.width }}
                     controls
                     resizeMode="stretch"
@@ -59,7 +59,7 @@ const AdvisorProfile = (props) => {
                 <ScrollView style={loginStyles.setFlex}>
                     <TouchableOpacity onPress={() => setShowVideo(true)} style={{ height: 230, width: Screen.width }}>
                         <Image
-                            source={{ uri: user.image }}
+                            source={{ uri: advisor.image }}
                             style={{ height: 230, width: Screen.width, resizeMode: 'cover' }}
                         />
                     </TouchableOpacity>
@@ -68,12 +68,12 @@ const AdvisorProfile = (props) => {
                     </TouchableOpacity>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingBottom: 20 }}>
                         <Image
-                            source={{ uri: user.image }}
+                            source={{ uri: advisor.image }}
                             style={AdvisorStyles.profileImage}
                         />
                         <View style={AdvisorStyles.orderView}>
-                            <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>{user.userName}</Text>
-                            <Text>{user.title}</Text>
+                            <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>{advisor.userName}</Text>
+                            <Text>{advisor.title}</Text>
                         </View>
                     </View>
                     {orderTypes.map((v, i) => {
@@ -89,15 +89,13 @@ const AdvisorProfile = (props) => {
                     })}
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT MY SERVICES</Text>
-                        <Text style={AdvisorStyles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </Text>
+                        <Text style={AdvisorStyles.aboutText}>{advisor.aboutService}</Text>
                     </View>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>ABOUT ME</Text>
-                        <Text style={AdvisorStyles.aboutText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                        </Text>
+                        <Text style={AdvisorStyles.aboutText}>{advisor.aboutMe}</Text>
                     </View>
-                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column' }}>
+                    <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingTop: 20, borderTopColor: 'rgba(0, 0, 0, 0.1)', borderTopWidth: 0.5, justifyContent: 'space-between', flexDirection: 'column', marginBottom: 20 }}>
                         <Text style={{ ...AdvisorStyles.orderText, fontWeight: 'bold' }}>CATEGORIES</Text>
                         <Text style={AdvisorStyles.aboutText}>Relationship coaching psychic</Text>
                     </View>

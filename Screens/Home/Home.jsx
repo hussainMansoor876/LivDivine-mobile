@@ -13,6 +13,7 @@ import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
+import { AdvisorProfile } from '../../Screens'
 
 
 const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
@@ -26,7 +27,9 @@ const Home = (props) => {
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
         searchValue: '',
-        allAdvisors: []
+        allAdvisors: [],
+        showAdvisor: false,
+        selectedAdvisor: {}
     })
 
     useEffect(() => {
@@ -67,6 +70,12 @@ const Home = (props) => {
         })
     }
 
+    if (state.showAdvisor) {
+        return (
+            <AdvisorProfile hideAdvisor={() => updateField({ showAdvisor: false })} advisor={state.selectedAdvisor} {...props} />
+        )
+    }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <View style={AdvisorStyles.headerView}>
@@ -101,7 +110,11 @@ const Home = (props) => {
                 <View style={homeStyles.viewStyle}>
                     {state.allAdvisors.map((v, i) => {
                         return (
-                            <View style={homeStyles.childStyle} key={i}>
+                            <TouchableOpacity
+                                key={i}
+                                style={homeStyles.childStyle}
+                                onPress={() => updateField({ showAdvisor: true, selectedAdvisor: v })}
+                            >
                                 <Image
                                     style={homeStyles.tile}
                                     source={{ uri: v.image }}
@@ -120,7 +133,7 @@ const Home = (props) => {
                             <Text style={{ marginLeft: -45, marginTop: 185, flexDirection: 'row' }}>Readings</Text>
                             <Text style={{ marginLeft: 30, marginTop: 170, flexDirection: 'row' }}>2020</Text>
                             <Text style={{ marginLeft: -35, marginTop: 185, flexDirection: 'row' }}>Year joined</Text> */}
-                            </View>
+                            </TouchableOpacity>
                         )
                     })}
                 </View>
