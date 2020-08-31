@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { ListItem, Button } from 'react-native-elements'
+import { loginUser } from '../Redux/actions/authActions';
 import { loginStyles } from '../styles'
 import { categoriesArray } from '../utils/constant'
 import client from '../Config/apollo'
 import { UPDATE_CATEGORIES } from '../utils/updateMutations'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 const CategoriesUpdate = (props) => {
@@ -14,6 +16,9 @@ const CategoriesUpdate = (props) => {
     const { categories } = user
     let [categoriesData, setCategories] = useState({})
     const dispatch = useDispatch();
+    const [state, setState] = useState({
+        isLoading: false
+    })
 
     const getObjLength = (obj) => Object.values(obj).filter(v => v).length
 
@@ -35,29 +40,41 @@ const CategoriesUpdate = (props) => {
     }
 
     const updateCategoriesData = () => {
-        // updateField({ isLoading: true })
+        updateField({ isLoading: true })
 
         client.mutate({ variables: { userId: user.id, userCategories: Object.keys(categoriesData) }, mutation: UPDATE_CATEGORIES })
             .then((res) => {
-                // updateField({ isLoading: false })
+                updateField({ isLoading: false })
                 const { updateUserCategories } = res.data
-                console.log('updateUserCategories', updateUserCategories.success)
-                // if (updateUserOrderTypes.success) {
-                //     user.orderTypes = updateUserOrderTypes.result
-                //     dispatch(loginUser(user))
-                //     Alert.alert('Successfully Update Orders!')
-                // }
-                // else {
-                //     Alert.alert(updatePassword.message)
-                // }
+                if (updateUserCategories.success) {
+                    user.categories = updateUserCategories.result
+                    dispatch(loginUser(user))
+                    Alert.alert('Successfully Update Orders!')
+                }
+                else {
+                    Alert.alert(updatePassword.message)
+                }
             })
             .catch((e) => {
                 updateField({ isLoading: false })
                 Alert.alert('Oops Something Went Wrong!')
             })
     }
+
+    const updateField = (obj) => {
+        setState({
+            ...state,
+            ...obj
+        })
+    }
+
     return (
         <View style={loginStyles.setFlex}>
+            <Spinner
+                visible={state.isLoading}
+                textContent={'Loading...'}
+                textStyle={loginStyles.spinnerTextStyle}
+            />
             <Text style={{ textAlign: 'center' }}>Select Categories (3 Max)</Text>
             {categoriesArray.map((v, i) => {
                 return (

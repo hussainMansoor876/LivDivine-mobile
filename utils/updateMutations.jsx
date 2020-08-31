@@ -30,7 +30,7 @@ mutation($userId: String!, $userCategories: [String]!){
     userCategories: $userCategories) {
     result {
       id, userId, userName, categoryName
-    }, success
+    }, success, message
   }
 }
 `
