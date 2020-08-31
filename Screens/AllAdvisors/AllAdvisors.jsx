@@ -3,7 +3,6 @@ import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, Alert } from 'r
 import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { LoginForm, SocialLogin } from '../../Components'
 import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -70,12 +69,6 @@ const AllAdvisorsScreen = (props) => {
         })
     }
 
-    if (state.showAdvisor) {
-        return (
-            <AdvisorProfile hideAdvisor={() => updateField({ showAdvisor: false })} advisor={state.selectedAdvisor} {...props} />
-        )
-    }
-
     const applyFilters = (obj) => {
         client.query({ variables: obj, query: APPLY_FILTER })
             .then((res) => {
@@ -102,6 +95,12 @@ const AllAdvisorsScreen = (props) => {
     const updateSearch = () => {
         const { searchValue, filterValue } = state
         applyFilters({ userId: user.id, orderType: filterValue, name: searchValue })
+    }
+
+    if (state.showAdvisor) {
+        return (
+            <AdvisorProfile hideAdvisor={() => updateField({ showAdvisor: false })} advisor={state.selectedAdvisor} {...props} />
+        )
     }
 
     return (

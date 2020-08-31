@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, Alert } from 'r
 import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser, removeUser } from '../../Redux/actions/authActions';
-import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
+import { loginStyles, homeStyles, AdvisorStyles, categoriesStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { appColor, orderTypes } from '../../utils/constant';
@@ -14,7 +14,7 @@ import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
 import { AdvisorProfile } from '../../Screens'
 
-const Home = (props) => {
+const CategoriesFilter = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
@@ -24,50 +24,9 @@ const Home = (props) => {
         allAdvisors: [],
         showAdvisor: false,
         selectedAdvisor: {},
-        filterValue: ''
+        filterValue: '',
+        category: props.category
     })
-
-    const getAll = () => {
-        setState({ ...state, searchValue: '' })
-        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
-            .then((res) => {
-                const { getAllAdvisorForUser } = res.data
-                if (getAllAdvisorForUser?.user?.length) {
-                    updateField({ allAdvisors: getAllAdvisorForUser.user })
-                }
-            })
-            .catch((e) => {
-                Alert.alert('Oops Something Went Wrong!')
-            })
-    }
-
-    useEffect(() => {
-        client.query({ variables: { userId: user.id }, query: GET_USER })
-            .then((res) => {
-                const { data } = res
-                if (data?.user) {
-                    dispatch(loginUser(data.user))
-                }
-                else {
-                    dispatch(removeUser())
-                }
-            })
-            .catch((e) => {
-                dispatch(removeUser())
-            })
-        getAll()
-    }, [])
-
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible)
-    };
-
-    const updateField = (obj) => {
-        setState({
-            ...state,
-            ...obj
-        })
-    }
 
     const applyFilters = (obj) => {
         client.query({ variables: obj, query: APPLY_FILTER })
@@ -85,16 +44,44 @@ const Home = (props) => {
             })
     }
 
+    useEffect(() => {
+        const { category } = state
+        applyFilters({ userId: user.id, category })
+    }, [])
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible)
+    };
+
+    const updateField = (obj) => {
+        setState({
+            ...state,
+            ...obj
+        })
+    }
+
     const updateModal = (val) => {
-        const { searchValue } = state
+        const { searchValue, category } = state
         updateField({ filterValue: val })
-        applyFilters({ userId: user.id, orderType: val, name: searchValue })
+        applyFilters({ userId: user.id, orderType: val, name: searchValue, category })
         setModalVisible(!isModalVisible)
     }
 
     const updateSearch = () => {
+        const { searchValue, filterValue, category } = state
+        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue, category })
+    }
+
+    const updateClear = () => {
+        const { filterValue, category } = state
+        updateField({ searchValue: '' })
+        applyFilters({ userId: user.id, orderType: filterValue, category })
+    }
+
+    const updateCategory = (val) => {
         const { searchValue, filterValue } = state
-        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue })
+        updateField({ category: val })
+        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue, category: val })
     }
 
     if (state.showAdvisor) {
@@ -102,7 +89,6 @@ const Home = (props) => {
             <AdvisorProfile hideAdvisor={() => updateField({ showAdvisor: false })} advisor={state.selectedAdvisor} {...props} />
         )
     }
-
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <View style={AdvisorStyles.headerView}>
@@ -112,7 +98,7 @@ const Home = (props) => {
                     color='#fff'
                     onPress={navigation.toggleDrawer}
                 />
-                <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Home</Text>
+                <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Categories</Text>
                 <FontAwesomeIcon
                     name="filter"
                     size={30}
@@ -130,7 +116,7 @@ const Home = (props) => {
                 onSubmitEditing={updateSearch}
                 round
                 color="#000000"
-                onClear={getAll}
+                onClear={updateClear}
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
             />
@@ -204,7 +190,7 @@ const Home = (props) => {
                 </View>
             </Modal>
         </SafeAreaView>
-    );
+    )
 };
 
-export default Home;
+export default CategoriesFilter;

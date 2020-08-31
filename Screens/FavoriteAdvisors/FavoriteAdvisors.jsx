@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
-import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
+import { Rating, Image, ListItem, Icon } from 'react-native-elements'
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../../Redux/actions/authActions';
 import { Header } from '../../Components'
 import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { appColor } from '../../utils/constant';
 import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
