@@ -29,6 +29,7 @@ const Home = (props) => {
     })
 
     const getAll = () => {
+        setState({ ...state, searchValue: '' })
         client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
