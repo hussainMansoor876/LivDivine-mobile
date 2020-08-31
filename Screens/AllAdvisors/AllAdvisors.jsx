@@ -7,27 +7,40 @@ import { LoginForm, SocialLogin } from '../../Components'
 import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { appColor } from '../../utils/constant';
+import { appColor, orderTypes } from '../../utils/constant';
 import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
-import { GET_ALL_ADVISORS } from '../../utils/getQueries'
+import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
+import { AdvisorProfile } from '../../Screens'
 
-
-const dummyImage = 'https://res.cloudinary.com/dzkbtggax/image/upload/v1595802600/pfz3a6qvkaqtwsenvmh5.jpg'
-
-const list = ['24-hour delivery', '1-hour delivery', 'Live video call', 'Live chat', 'Live voice call', 'Live chat', 'Currently offline', 'All advisors']
-
-const allAdvisors = (props) => {
+const AllAdvisorsScreen = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
         searchValue: '',
-        allAdvisors: []
+        allAdvisors: [],
+        showAdvisor: false,
+        selectedAdvisor: {},
+        filterValue: ''
     })
+
+    const getAll = () => {
+        setState({ ...state, searchValue: '' })
+        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
+            .then((res) => {
+                const { getAllAdvisorForUser } = res.data
+                if (getAllAdvisorForUser?.user?.length) {
+                    updateField({ allAdvisors: getAllAdvisorForUser.user })
+                }
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+            })
+    }
 
     useEffect(() => {
         client.query({ variables: { userId: user.id }, query: GET_USER })
@@ -43,16 +56,7 @@ const allAdvisors = (props) => {
             .catch((e) => {
                 dispatch(removeUser())
             })
-        client.query({ variables: { userId: user.id }, query: GET_ALL_ADVISORS })
-            .then((res) => {
-                const { getAllAdvisorForUser } = res.data
-                if (getAllAdvisorForUser?.user?.length) {
-                    updateField({ allAdvisors: getAllAdvisorForUser.user })
-                }
-            })
-            .catch((e) => {
-                Alert.alert('Oops Something Went Wrong!')
-            })
+        getAll()
     }, [])
 
     const toggleModal = () => {
@@ -64,6 +68,40 @@ const allAdvisors = (props) => {
             ...state,
             ...obj
         })
+    }
+
+    if (state.showAdvisor) {
+        return (
+            <AdvisorProfile hideAdvisor={() => updateField({ showAdvisor: false })} advisor={state.selectedAdvisor} {...props} />
+        )
+    }
+
+    const applyFilters = (obj) => {
+        client.query({ variables: obj, query: APPLY_FILTER })
+            .then((res) => {
+                const { getAllAdvisor } = res.data
+                if (getAllAdvisor.success) {
+                    updateField({ allAdvisors: getAllAdvisor.user })
+                }
+                else {
+                    updateField({ allAdvisors: [] })
+                }
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+            })
+    }
+
+    const updateModal = (val) => {
+        const { searchValue } = state
+        updateField({ filterValue: val })
+        applyFilters({ userId: user.id, orderType: val, name: searchValue })
+        setModalVisible(!isModalVisible)
+    }
+
+    const updateSearch = () => {
+        const { searchValue, filterValue } = state
+        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue })
     }
 
     return (
@@ -90,9 +128,10 @@ const allAdvisors = (props) => {
                 // placeholderTextColor="#fff"
                 lightTheme
                 inputStyle={{ backgroundColor: '#fff' }}
-                onSubmitEditing={(e) => console.log('******')}
+                onSubmitEditing={updateSearch}
                 round
                 color="#000000"
+                onClear={getAll}
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
             />
@@ -100,7 +139,11 @@ const allAdvisors = (props) => {
                 <View style={homeStyles.viewStyle}>
                     {state.allAdvisors.map((v, i) => {
                         return (
-                            <View style={homeStyles.childStyle} key={i}>
+                            <TouchableOpacity
+                                key={i}
+                                style={homeStyles.childStyle}
+                                onPress={() => updateField({ showAdvisor: true, selectedAdvisor: v })}
+                            >
                                 <Image
                                     style={homeStyles.tile}
                                     source={{ uri: v.image }}
@@ -119,7 +162,7 @@ const allAdvisors = (props) => {
                             <Text style={{ marginLeft: -45, marginTop: 185, flexDirection: 'row' }}>Readings</Text>
                             <Text style={{ marginLeft: 30, marginTop: 170, flexDirection: 'row' }}>2020</Text>
                             <Text style={{ marginLeft: -35, marginTop: 185, flexDirection: 'row' }}>Year joined</Text> */}
-                            </View>
+                            </TouchableOpacity>
                         )
                     })}
                 </View>
@@ -145,13 +188,13 @@ const allAdvisors = (props) => {
                         </TouchableOpacity>
                     </View>
                     {
-                        list.map((v, i) => (
+                        orderTypes.map((v, i) => (
                             <ListItem
                                 key={i}
                                 title={
                                     <View style={{ width: '100%' }}>
-                                        <TouchableOpacity onPress={() => console.log('Hello')}>
-                                            <Text style={{ textAlign: 'center', fontSize: 20 }}>{v}</Text>
+                                        <TouchableOpacity onPress={() => updateModal(v.orderTypeName)} >
+                                            <Text style={{ textAlign: 'center', fontSize: 20 }}>{v.orderTypeName}</Text>
                                         </TouchableOpacity>
                                     </View>
                                 }
@@ -165,4 +208,4 @@ const allAdvisors = (props) => {
     );
 };
 
-export default allAdvisors;
+export default AllAdvisorsScreen;
