@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { SafeAreaView, ScrollView, Text, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { Header } from '../../Components'
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import AntdIcon from 'react-native-vector-icons/AntDesign';
+import * as Animatable from 'react-native-animatable';
 import { loginStyles, AdvisorStyles } from '../../styles'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { Icon, Button } from 'react-native-elements'
@@ -10,16 +12,18 @@ import Screen from '../../utils/ScreenDimensions'
 import { appColor } from '../../utils/constant'
 import { roundToTwo } from '../../utils/constant'
 
+const AnimatedIcon = Animatable.createAnimatableComponent(AntdIcon)
 
 const AdvisorProfile = (props) => {
     const user = useSelector(state => state.authReducer.user);
-    const { hideAdvisor, advisor } = props
+    const { hideAdvisor, advisor, navigation } = props
     const { categories, orderTypes } = advisor
-    console.log('orderTypes', orderTypes)
     const dispatch = useDispatch()
+    const smallAnimatedIcon = useRef()
     const [isLoading, setLoading] = useState(true)
     const [currentTime, setCurretTime] = useState(0)
     const [showVideo, setShowVideo] = useState(false)
+    const liked = true
 
     const updateLoading = (e) => {
         if (currentTime === e.currentTime) {
@@ -32,9 +36,38 @@ const AdvisorProfile = (props) => {
         }
     }
 
+    const handleOnPressLike = async () => {
+        console.log('smallAnimatedIcon', smallAnimatedIcon)
+        smallAnimatedIcon.current.bounceIn()
+    }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Header {...props} title="Profile" />
+            <View style={AdvisorStyles.headerView}>
+                <FeatherIcon
+                    name='menu'
+                    size={30}
+                    color='#fff'
+                    onPress={navigation.toggleDrawer}
+                />
+                <Text style={{ color: '#fff', fontSize: 20, alignSelf: 'center' }}>{advisor.userName.split(' ')[0]}</Text>
+                <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={handleOnPressLike}
+                >
+                    <AnimatedIcon
+                        ref={smallAnimatedIcon}
+                        name={liked ? 'heart' : 'hearto'}
+                        color={liked ? '#e92f3c' : 'rgba(255,255,255,0.9)'}
+                        size={30}
+                        style={{
+                            paddingHorizontal: 10,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    />
+                </TouchableOpacity>
+            </View>
             {showVideo ? <View style={{ height: Screen.height, backgroundColor: '#000' }}>
                 <TouchableOpacity onPress={() => setShowVideo(false)} style={AdvisorStyles.leftIcon}>
                     <Icon
