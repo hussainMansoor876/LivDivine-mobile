@@ -41,8 +41,8 @@ const CategoriesUpdate = (props) => {
 
     const updateCategoriesData = () => {
         updateField({ isLoading: true })
-
-        client.mutate({ variables: { userId: user.id, userCategories: Object.keys(categoriesData) }, mutation: UPDATE_CATEGORIES })
+        var userCategories = Object.entries(categoriesData).filter(v => v[1]).map(v => v[0])
+        client.mutate({ variables: { userId: user.id, userCategories }, mutation: UPDATE_CATEGORIES })
             .then((res) => {
                 updateField({ isLoading: false })
                 const { updateUserCategories } = res.data
@@ -74,6 +74,11 @@ const CategoriesUpdate = (props) => {
                 visible={state.isLoading}
                 textContent={'Loading...'}
                 textStyle={loginStyles.spinnerTextStyle}
+            />
+            <Button
+                title="Back"
+                buttonStyle={{ ...loginStyles.loginBtn, width: 100, marginTop: 10, marginBottom: 15 }}
+                onPress={props.updateField}
             />
             <Text style={{ textAlign: 'center' }}>Select Categories (3 Max)</Text>
             {categoriesArray.map((v, i) => {
