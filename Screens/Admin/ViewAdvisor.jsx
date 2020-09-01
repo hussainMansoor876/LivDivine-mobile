@@ -71,7 +71,7 @@ const ViewAdvisor = (props) => {
                     />
                     <TouchableOpacity onPress={() => setShowVideo(true)} style={{ height: 230, width: Screen.width }}>
                         <Image
-                            source={{ uri: 'https://res.cloudinary.com/dhspait8a/image/upload/v1595100989/cwbwopm3ys9hpkjaajw1.jpg' }}
+                            source={{ uri: advisor.image }}
                             style={{ height: 230, width: Screen.width, resizeMode: 'cover' }}
                         />
                     </TouchableOpacity>
