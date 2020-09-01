@@ -44,10 +44,10 @@ const CategoriesFilter = (props) => {
             })
     }
 
-    useEffect(() => {
-        const { category } = state
-        applyFilters({ userId: user.id, category })
-    }, [])
+    // useEffect(() => {
+    //     const { category } = state
+    //     applyFilters({ userId: user.id, category })
+    // }, [])
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
@@ -120,7 +120,7 @@ const CategoriesFilter = (props) => {
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
             />
-            <ScrollView style={loginStyles.setFlex}>
+            {/* <ScrollView style={loginStyles.setFlex}>
                 <View style={homeStyles.viewStyle}>
                     {state.allAdvisors.map((v, i) => {
                         return (
@@ -143,15 +143,11 @@ const CategoriesFilter = (props) => {
                                     />
                                     <Text style={{ ...homeStyles.rating, marginLeft: 15 }}>5</Text>
                                 </View>
-                                {/* <Text style={{ marginLeft: -60, marginTop: 170, flexDirection: 'row' }}>1,123</Text>
-                            <Text style={{ marginLeft: -45, marginTop: 185, flexDirection: 'row' }}>Readings</Text>
-                            <Text style={{ marginLeft: 30, marginTop: 170, flexDirection: 'row' }}>2020</Text>
-                            <Text style={{ marginLeft: -35, marginTop: 185, flexDirection: 'row' }}>Year joined</Text> */}
                             </TouchableOpacity>
                         )
                     })}
                 </View>
-            </ScrollView>
+            </ScrollView> */}
             <Modal
                 isVisible={isModalVisible}
                 backdropOpacity={0.5}
