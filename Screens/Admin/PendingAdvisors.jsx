@@ -8,6 +8,7 @@ import { GET_ADVISORS } from '../../utils/getQueries'
 import { UPDATE_STATUS } from '../../utils/updateMutations'
 import Spinner from 'react-native-loading-spinner-overlay';
 import client from '../../Config/apollo'
+import ViewAdvisor from './ViewAdvisor'
 
 
 const PendingAdvisors = (props) => {
@@ -16,6 +17,8 @@ const PendingAdvisors = (props) => {
     const [isLoading, setLoading] = useState(true)
     const [updateList, setUpdateList] = useState(true)
     const [spin, setSpin] = useState(false)
+    const [showAdvisor, setShowAdvisor] = useState(false)
+    const [advisor, setAdvisor] = useState({})
     const [state, setState] = useState({
         allAdvisors: []
     })
@@ -29,6 +32,11 @@ const PendingAdvisors = (props) => {
             ...state,
             ...obj
         })
+    }
+
+    const showProfile = (user) => {
+        setAdvisor(user)
+        setShowAdvisor(true)
     }
 
     const getData = () => {
@@ -68,6 +76,12 @@ const PendingAdvisors = (props) => {
             })
     }
 
+    if (showAdvisor) {
+        return (
+            <ViewAdvisor {...props} advisor={advisor} cancelView={() => setShowAdvisor(false)} />
+        )
+    }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <Spinner
@@ -79,13 +93,13 @@ const PendingAdvisors = (props) => {
                 {state.allAdvisors.map((v, i) => {
                     return (
                         <View key={i} style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, backgroundColor: '#fff', borderBottomColor: 'rgba(0, 0, 0, 0.5)', borderBottomWidth: 0.5, justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => showProfile(v)}>
                                 <Image
                                     source={{ uri: v.image }}
                                     style={{ width: 50, height: 50, marginRight: 10, marginLeft: 10, borderRadius: 250 }}
                                 />
                                 <Text style={{ fontSize: 16, marginTop: 12 }}>{v.userName}</Text>
-                            </View>
+                            </TouchableOpacity>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 150, marginRight: 10 }}>
                                 <Button
                                     title="Approve"

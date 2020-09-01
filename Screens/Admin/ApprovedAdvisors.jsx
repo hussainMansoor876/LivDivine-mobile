@@ -58,11 +58,6 @@ const ApprovedAdvisors = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Button
-                title="Logout"
-                onPress={() => dispatch(removeUser())}
-                buttonStyle={{ backgroundColor: appColor, alignSelf: 'flex-end', margin: 20, width: 120 }}
-            />
             <ScrollView>
                 {
                     state.allAdvisors.map((item, i) => (
