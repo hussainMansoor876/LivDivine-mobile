@@ -252,6 +252,17 @@ const AdvisorStyles = StyleSheet.create({
         position: 'absolute',
         marginTop: 80
     },
+    playButtonAdmin: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        position: 'absolute',
+        marginTop: 140
+    },
     leftIcon: {
         flex: 1,
         flexDirection: 'row',

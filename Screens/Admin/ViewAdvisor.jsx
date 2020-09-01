@@ -31,19 +31,6 @@ const ViewAdvisor = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Button
-                icon={
-                    <Icon
-                        type="font-awesome"
-                        color="#fff"
-                        name="chevron-left"
-                        size={20}
-                        iconStyle={{ zIndex: 9999 }}
-                    />
-                }
-                buttonStyle={{ ...loginStyles.loginBtn, width: 60, marginTop: 10, marginBottom: 15, height: 40 }}
-                onPress={props.cancelView}
-            />
             {showVideo ? <View style={{ height: Screen.height, backgroundColor: '#000' }}>
                 <TouchableOpacity onPress={() => setShowVideo(false)} style={AdvisorStyles.leftIcon}>
                     <Icon
@@ -69,13 +56,26 @@ const ViewAdvisor = (props) => {
                 />
             </View> :
                 <ScrollView style={loginStyles.setFlex}>
+                    <Button
+                        icon={
+                            <Icon
+                                type="font-awesome"
+                                color="#fff"
+                                name="chevron-left"
+                                size={20}
+                                iconStyle={{ zIndex: 9999 }}
+                            />
+                        }
+                        buttonStyle={{ ...loginStyles.loginBtn, width: 60, marginTop: 10, marginBottom: 15, height: 40 }}
+                        onPress={props.cancelView}
+                    />
                     <TouchableOpacity onPress={() => setShowVideo(true)} style={{ height: 230, width: Screen.width }}>
                         <Image
                             source={{ uri: 'https://res.cloudinary.com/dhspait8a/image/upload/v1595100989/cwbwopm3ys9hpkjaajw1.jpg' }}
                             style={{ height: 230, width: Screen.width, resizeMode: 'cover' }}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setShowVideo(true)} style={AdvisorStyles.playButton}>
+                    <TouchableOpacity onPress={() => setShowVideo(true)} style={AdvisorStyles.playButtonAdmin}>
                         <MaterialIcon style={{ color: '#fff' }} name="play-arrow" size={42} />
                     </TouchableOpacity>
                     <View style={{ ...AdvisorStyles.setFlex, ...AdvisorStyles.viewProfile, paddingBottom: 20 }}>

@@ -7,6 +7,7 @@ import { Icon, Button, ListItem } from 'react-native-elements'
 import { GET_ADVISORS } from '../../utils/getQueries'
 import client from '../../Config/apollo'
 import ViewAdvisor from './ViewAdvisor'
+import { orderTypes, appColor } from '../../utils/constant'
 
 const ApprovedAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
@@ -20,7 +21,7 @@ const ApprovedAdvisors = (props) => {
 
     useEffect(() => {
         getData()
-    },[])
+    }, [])
 
     const updateField = (obj) => {
         setState({
@@ -57,6 +58,11 @@ const ApprovedAdvisors = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Button
+                title="Logout"
+                onPress={() => dispatch(removeUser())}
+                buttonStyle={{ backgroundColor: appColor, alignSelf: 'flex-end', margin: 20, width: 120 }}
+            />
             <ScrollView>
                 {
                     state.allAdvisors.map((item, i) => (

@@ -13,11 +13,6 @@ const TabScreen = () => {
   const dispatch = useDispatch();
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Button
-        title="Logout"
-        onPress={() => dispatch(removeUser())}
-        buttonStyle={{ backgroundColor: appColor, alignSelf: 'flex-end', margin: 20, width: 120 }}
-      />
       <NavigationContainer>
         <Tab.Navigator
           lazy={true}
