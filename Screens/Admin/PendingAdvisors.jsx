@@ -16,18 +16,27 @@ const PendingAdvisors = (props) => {
     const [isLoading, setLoading] = useState(true)
     const [updateList, setUpdateList] = useState(true)
     const [spin, setSpin] = useState(false)
-    let [allAdvisors, setAllAdvisors] = useState([])
+    const [state, setState] = useState({
+        allAdvisors: []
+    })
 
     useEffect(() => {
         getData()
-    })
+    },[])
+
+    const updateField = (obj) => {
+        setState({
+            ...state,
+            ...obj
+        })
+    }
 
     const getData = () => {
         client.query({ variables: { adminId: '421c6267-7911-4686-91fe-fe424e8efe00', isApproved: false }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
-                    setAllAdvisors(getAllAdvisorForAdmin.user)
+                    updateField({ allAdvisors: getAllAdvisorForAdmin.user })
                 }
                 setLoading(false)
             })
@@ -43,8 +52,9 @@ const PendingAdvisors = (props) => {
             .then((res) => {
                 const { approvedAdvisor } = res.data
                 if (approvedAdvisor.success) {
+                    let { allAdvisors } = state
                     allAdvisors = allAdvisors.filter(v => v.id !== userId)
-                    setAllAdvisors(allAdvisors)
+                    updateField({ allAdvisors })
                     setSpin(false)
                 }
                 else {
@@ -57,6 +67,7 @@ const PendingAdvisors = (props) => {
                 setSpin(false)
             })
     }
+
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <Spinner
@@ -65,7 +76,7 @@ const PendingAdvisors = (props) => {
                 textStyle={loginStyles.spinnerTextStyle}
             />
             <ScrollView>
-                {allAdvisors.map((v, i) => {
+                {state.allAdvisors.map((v, i) => {
                     return (
                         <View key={i} style={{ flexDirection: 'row', paddingTop: 10, paddingBottom: 10, backgroundColor: '#fff', borderBottomColor: 'rgba(0, 0, 0, 0.5)', borderBottomWidth: 0.5, justifyContent: 'space-between' }}>
                             <View style={{ flexDirection: 'row' }}>
@@ -91,11 +102,11 @@ const PendingAdvisors = (props) => {
                 })}
             </ScrollView>
             {
-                isLoading && !allAdvisors.length ? <ActivityIndicator
+                isLoading && !state.allAdvisors.length ? <ActivityIndicator
                     color="rgba(0, 0, 0, 0.5)"
                     size="small"
                     style={AdvisorStyles.activityStyle}
-                /> : !isLoading && !allAdvisors.length ? <View style={AdvisorStyles.container}>
+                /> : !isLoading && !state.allAdvisors.length ? <View style={AdvisorStyles.container}>
                     <Text>No Advisor found!</Text>
                 </View> : null
             }

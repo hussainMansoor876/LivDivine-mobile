@@ -12,20 +12,29 @@ const ApprovedAdvisors = (props) => {
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch()
     const [isLoading, setLoading] = useState(true)
-    const [allAdvisors, setAllAdvisors] = useState([])
     const [showAdvisor, setShowAdvisor] = useState(false)
     const [advisor, setAdvisor] = useState({})
+    const [state, setState] = useState({
+        allAdvisors: []
+    })
 
     useEffect(() => {
         getData()
-    })
+    },[])
+
+    const updateField = (obj) => {
+        setState({
+            ...state,
+            ...obj
+        })
+    }
 
     const getData = () => {
         client.query({ variables: { adminId: '421c6267-7911-4686-91fe-fe424e8efe00', isApproved: true }, query: GET_ADVISORS })
             .then((res) => {
                 const { getAllAdvisorForAdmin } = res.data
                 if (getAllAdvisorForAdmin?.user?.length) {
-                    setAllAdvisors(getAllAdvisorForAdmin.user)
+                    updateField({ allAdvisors: getAllAdvisorForAdmin.user })
                 }
                 setLoading(false)
             })
@@ -50,7 +59,7 @@ const ApprovedAdvisors = (props) => {
         <SafeAreaView style={loginStyles.setFlex}>
             <ScrollView>
                 {
-                    allAdvisors.map((item, i) => (
+                    state.allAdvisors.map((item, i) => (
                         <ListItem
                             key={i}
                             title={item.userName}
@@ -67,11 +76,11 @@ const ApprovedAdvisors = (props) => {
                     ))
                 }
             </ScrollView>
-            {isLoading && !allAdvisors.length ? <ActivityIndicator
+            {isLoading && !state.allAdvisors.length ? <ActivityIndicator
                 color="rgba(0, 0, 0, 0.5)"
                 size="small"
                 style={AdvisorStyles.activityStyle}
-            /> : !isLoading && !allAdvisors.length ? <View style={AdvisorStyles.container}>
+            /> : !isLoading && !state.allAdvisors.length ? <View style={AdvisorStyles.container}>
                 <Text>No Advisor found!</Text>
             </View> : null}
         </SafeAreaView>
