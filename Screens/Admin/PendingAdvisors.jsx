@@ -43,10 +43,9 @@ const PendingAdvisors = (props) => {
             .then((res) => {
                 const { approvedAdvisor } = res.data
                 if (approvedAdvisor.success) {
-                    setAllAdvisors([])
-                    setLoading(true)
+                    allAdvisors = allAdvisors.filter(v => v.id !== userId)
+                    setAllAdvisors(allAdvisors)
                     setSpin(false)
-                    getData()
                 }
                 else {
                     Alert.alert('Oops Something Went Wrong!')
