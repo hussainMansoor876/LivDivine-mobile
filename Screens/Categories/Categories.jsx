@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loginStyles, categoriesStyles } from '../../styles'
 import { Header } from '../../Components'
 import categoriesData from '../../utils/categoriesData'
+import CategoriesFilter from './CategoriesFilter'
 
 const Categories = (props) => {
     const user = useSelector(state => state.authReducer.user);

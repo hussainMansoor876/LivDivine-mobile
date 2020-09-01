@@ -33,6 +33,7 @@ const CategoriesFilter = (props) => {
             .then((res) => {
                 const { getAllAdvisor } = res.data
                 if (getAllAdvisor.success) {
+                    console.log('getAllAdvisor', getAllAdvisor)
                     updateField({ allAdvisors: getAllAdvisor.user })
                 }
                 else {
@@ -44,10 +45,10 @@ const CategoriesFilter = (props) => {
             })
     }
 
-    // useEffect(() => {
-    //     const { category } = state
-    //     applyFilters({ userId: user.id, category })
-    // }, [])
+    useEffect(() => {
+        const { category } = state
+        applyFilters({ userId: user.id, category })
+    }, [])
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
