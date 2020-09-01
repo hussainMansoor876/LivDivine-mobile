@@ -12,9 +12,10 @@ import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
+import { getFilterData } from '../../utils/helpers'
 import { AdvisorProfile } from '../../Screens'
 
-const AllAdvisorsScreen = (props) => {
+const AllAdvisorScreen = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const AllAdvisorsScreen = (props) => {
             .then((res) => {
                 const { getAllAdvisorForUser } = res.data
                 if (getAllAdvisorForUser?.user?.length) {
-                    updateField({ allAdvisors: getAllAdvisorForUser.user })
+                    updateField({ allAdvisors: getFilterData(getAllAdvisorForUser.user) })
                 }
             })
             .catch((e) => {
@@ -73,10 +74,12 @@ const AllAdvisorsScreen = (props) => {
         client.query({ variables: obj, query: APPLY_FILTER })
             .then((res) => {
                 const { getAllAdvisor } = res.data
+                console.log(getAllAdvisor)
                 if (getAllAdvisor.success) {
-                    updateField({ allAdvisors: getAllAdvisor.user })
+                    updateField({ allAdvisors: getFilterData(getAllAdvisor.user) })
                 }
                 else {
+                    Alert.alert('No user Found!')
                     updateField({ allAdvisors: [] })
                 }
             })
@@ -87,14 +90,36 @@ const AllAdvisorsScreen = (props) => {
 
     const updateModal = (val) => {
         const { searchValue } = state
-        updateField({ filterValue: val })
-        applyFilters({ userId: user.id, orderType: val, name: searchValue })
-        setModalVisible(!isModalVisible)
+        if (!val) {
+            updateField({ filterValue: '' })
+            if (searchValue) {
+                applyFilters({ userId: user.id, name: searchValue })
+            }
+            else {
+                getAll()
+            }
+            setModalVisible(!isModalVisible)
+        }
+        else {
+            updateField({ filterValue: val })
+            applyFilters({ userId: user.id, orderType: val, name: searchValue })
+            setModalVisible(!isModalVisible)
+        }
     }
 
     const updateSearch = () => {
         const { searchValue, filterValue } = state
-        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue })
+        if (searchValue) {
+            if (filterValue) {
+                applyFilters({ userId: user.id, orderType: filterValue, name: searchValue })
+            }
+            else {
+                applyFilters({ userId: user.id, name: searchValue })
+            }
+        }
+        else {
+            getAll()
+        }
     }
 
     if (state.showAdvisor) {
@@ -201,10 +226,21 @@ const AllAdvisorsScreen = (props) => {
                             />
                         ))
                     }
+                    <ListItem
+                        title={
+                            <View style={{ width: '100%' }}>
+                                <TouchableOpacity onPress={() => updateModal(false)} >
+                                    <Text style={{ textAlign: 'center', fontSize: 20 }}>Clear Filter</Text>
+                                </TouchableOpacity>
+                            </View>
+                        }
+                        bottomDivider
+                        topDivider
+                    />
                 </View>
             </Modal>
         </SafeAreaView>
     );
 };
 
-export default AllAdvisorsScreen;
+export default AllAdvisorScreen;

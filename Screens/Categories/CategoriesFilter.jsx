@@ -16,7 +16,7 @@ import { getFilterData } from '../../utils/helpers'
 import { AdvisorProfile } from '../../Screens'
 
 const CategoriesFilter = (props) => {
-    const { navigation } = props
+    const { hideFilter } = props
     const user = useSelector(state => state.authReducer.user);
     const dispatch = useDispatch();
     const [isModalVisible, setModalVisible] = useState(false)
@@ -30,25 +30,6 @@ const CategoriesFilter = (props) => {
         sLoading: false
     })
 
-    const applyFilters = (obj) => {
-        // updateField({ isLoading: true })
-        console.log(obj)
-        client.query({ variables: obj, query: APPLY_FILTER })
-            .then((res) => {
-                const { getAllAdvisor } = res.data
-                // console.log(getAllAdvisor)
-                if (getAllAdvisor.success) {
-                    updateField({ allAdvisors: getFilterData(getAllAdvisor.user), isLoading: false })
-                }
-                else {
-                    updateField({ allAdvisors: [], isLoading: false })
-                }
-            })
-            .catch((e) => {
-                updateField({ isLoading: false })
-                Alert.alert('Oops Something Went Wrong!')
-            })
-    }
 
     useEffect(() => {
         const { category } = state
@@ -66,22 +47,56 @@ const CategoriesFilter = (props) => {
         })
     }
 
+    const applyFilters = (obj) => {
+        client.query({ variables: obj, query: APPLY_FILTER })
+            .then((res) => {
+                const { getAllAdvisor } = res.data
+                console.log(getAllAdvisor)
+                if (getAllAdvisor.success) {
+                    updateField({ allAdvisors: getFilterData(getAllAdvisor.user) })
+                }
+                else {
+                    Alert.alert('No user Found!')
+                    updateField({ allAdvisors: [] })
+                }
+            })
+            .catch((e) => {
+                Alert.alert('Oops Something Went Wrong!')
+            })
+    }
+
     const updateModal = (val) => {
         const { searchValue, category } = state
-        updateField({ filterValue: val })
-        applyFilters({ userId: user.id, orderType: val, name: searchValue, category })
-        setModalVisible(!isModalVisible)
+        if (!val) {
+            updateField({ filterValue: '' })
+            if (searchValue) {
+                applyFilters({ userId: user.id, name: searchValue, category })
+            }
+            else {
+                applyFilters({ userId: user.id, category })
+            }
+            setModalVisible(!isModalVisible)
+        }
+        else {
+            updateField({ filterValue: val })
+            applyFilters({ userId: user.id, orderType: val, name: searchValue, category })
+            setModalVisible(!isModalVisible)
+        }
     }
 
     const updateSearch = () => {
-        const { searchValue, filterValue, category } = state
-        applyFilters({ userId: user.id, orderType: filterValue, name: searchValue, category })
-    }
-
-    const updateClear = () => {
-        const { filterValue, category } = state
-        updateField({ searchValue: '' })
-        applyFilters({ userId: user.id, orderType: filterValue, category })
+        const { searchValue, filterValue } = state
+        if (searchValue) {
+            if (filterValue) {
+                applyFilters({ userId: user.id, orderType: filterValue, name: searchValue, category })
+            }
+            else {
+                applyFilters({ userId: user.id, name: searchValue, category })
+            }
+        }
+        else {
+            applyFilters({ userId: user.id, category })
+        }
     }
 
     const updateCategory = (val) => {
@@ -104,10 +119,10 @@ const CategoriesFilter = (props) => {
             />
             <View style={AdvisorStyles.headerView}>
                 <FeatherIcon
-                    name='menu'
+                    name='arrow-left'
                     size={30}
                     color='#fff'
-                    onPress={navigation.toggleDrawer}
+                    onPress={hideFilter}
                 />
                 <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Categories</Text>
                 <FontAwesomeIcon
@@ -127,7 +142,7 @@ const CategoriesFilter = (props) => {
                 onSubmitEditing={updateSearch}
                 round
                 color="#000000"
-                onClear={updateClear}
+                // onClear={updateClear}
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
             />
