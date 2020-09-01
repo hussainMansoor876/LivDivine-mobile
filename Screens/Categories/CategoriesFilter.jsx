@@ -11,7 +11,8 @@ import styles from '../../Navigation/style'
 import Modal from 'react-native-modal';
 import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
-import { GET_USER } from '../../utils/authQueries'
+import Spinner from 'react-native-loading-spinner-overlay';
+import { getFilterData } from '../../utils/helpers'
 import { AdvisorProfile } from '../../Screens'
 
 const CategoriesFilter = (props) => {
@@ -25,22 +26,26 @@ const CategoriesFilter = (props) => {
         showAdvisor: false,
         selectedAdvisor: {},
         filterValue: '',
-        category: props.category
+        category: props.category,
+        sLoading: false
     })
 
     const applyFilters = (obj) => {
+        // updateField({ isLoading: true })
+        console.log(obj)
         client.query({ variables: obj, query: APPLY_FILTER })
             .then((res) => {
                 const { getAllAdvisor } = res.data
+                // console.log(getAllAdvisor)
                 if (getAllAdvisor.success) {
-                    console.log('getAllAdvisor', getAllAdvisor)
-                    updateField({ allAdvisors: getAllAdvisor.user })
+                    updateField({ allAdvisors: getFilterData(getAllAdvisor.user), isLoading: false })
                 }
                 else {
-                    updateField({ allAdvisors: [] })
+                    updateField({ allAdvisors: [], isLoading: false })
                 }
             })
             .catch((e) => {
+                updateField({ isLoading: false })
                 Alert.alert('Oops Something Went Wrong!')
             })
     }
@@ -92,6 +97,11 @@ const CategoriesFilter = (props) => {
     }
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Spinner
+                visible={state.isLoading}
+                textContent={'Loading...'}
+                textStyle={loginStyles.spinnerTextStyle}
+            />
             <View style={AdvisorStyles.headerView}>
                 <FeatherIcon
                     name='menu'
@@ -121,7 +131,7 @@ const CategoriesFilter = (props) => {
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
             />
-            {/* <ScrollView style={loginStyles.setFlex}>
+            <ScrollView style={loginStyles.setFlex}>
                 <View style={homeStyles.viewStyle}>
                     {state.allAdvisors.map((v, i) => {
                         return (
@@ -148,7 +158,7 @@ const CategoriesFilter = (props) => {
                         )
                     })}
                 </View>
-            </ScrollView> */}
+            </ScrollView>
             <Modal
                 isVisible={isModalVisible}
                 backdropOpacity={0.5}
