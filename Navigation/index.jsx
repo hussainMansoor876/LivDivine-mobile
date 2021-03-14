@@ -1,14 +1,9 @@
-import React from 'react';
-import {
-    SafeAreaView, ScrollView
-} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Drawer from './Drawer'
 import AppNavigator from './AppNavigator'
 import TabNavigation from './TabNavigation'
-import { gql } from "apollo-boost";
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost'
 
 
 const ADD_TODO = gql`
@@ -20,16 +15,16 @@ const ADD_TODO = gql`
         token
         }
   }
-`;
+`
 
 
 const Home = (props) => {
-    const user = useSelector(state => state.authReducer.user);
+    const user = useSelector(state => state.authReducer.user)
     console.log(user)
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     if (user) {
-        if (user.role === "ADMIN") {
+        if (user.role === 'ADMIN') {
             return (
                 <TabNavigation />
             )
@@ -40,7 +35,7 @@ const Home = (props) => {
     }
     return (
         <AppNavigator />
-    );
-};
+    )
+}
 
-export default Home;
+export default Home

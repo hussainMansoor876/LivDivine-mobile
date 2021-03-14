@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, Alert } from 'react-native'
 import { Rating, Image, SearchBar, Button, ListItem, Icon } from 'react-native-elements'
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../../Redux/actions/authActions';
+import { useSelector, useDispatch } from 'react-redux'
+import { loginUser, removeUser } from '../../Redux/actions/authActions'
 import { loginStyles, homeStyles, AdvisorStyles } from '../../styles'
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { appColor, orderTypes } from '../../utils/constant';
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import { appColor, orderTypes } from '../../utils/constant'
 import styles from '../../Navigation/style'
-import Modal from 'react-native-modal';
+import Modal from 'react-native-modal'
 import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
@@ -17,8 +17,8 @@ import { AdvisorProfile } from '../../Screens'
 
 const Home = (props) => {
     const { navigation } = props
-    const user = useSelector(state => state.authReducer.user);
-    const dispatch = useDispatch();
+    const user = useSelector(state => state.authReducer.user)
+    const dispatch = useDispatch()
     const [isModalVisible, setModalVisible] = useState(false)
     const [state, setState] = useState({
         searchValue: '',
@@ -61,7 +61,7 @@ const Home = (props) => {
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
-    };
+    }
 
     const updateField = (obj) => {
         setState({
@@ -240,7 +240,7 @@ const Home = (props) => {
                 </View>
             </Modal>
         </SafeAreaView>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home

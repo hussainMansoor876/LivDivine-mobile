@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView, ScrollView, Text, Image } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
+import React, { useEffect } from 'react'
+import { SafeAreaView, ScrollView, Text, Image } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginUser, removeUser } from '../Redux/actions/authActions'
 import { LoginForm, SocialLogin } from '../Components'
 import { loginStyles } from '../styles'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const logo = require('../assets/logo.png')
 
-const user1 = { name: 'Mansoor Hussain' };
+const user1 = { name: 'Mansoor Hussain' }
 
 const Login = (props) => {
   const { navigation } = props
-  const user = useSelector(state => state.authReducer.user);
-  const dispatch = useDispatch();
+  const user = useSelector(state => state.authReducer.user)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(removeUser())
@@ -33,7 +33,7 @@ const Login = (props) => {
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

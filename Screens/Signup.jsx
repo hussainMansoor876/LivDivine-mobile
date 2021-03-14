@@ -1,23 +1,15 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  Text,
-  ScrollView,
-  Image
-} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
+import React from 'react'
+import { SafeAreaView, TouchableOpacity, StyleSheet, View, Text, ScrollView, Image } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginUser, removeUser } from '../Redux/actions/authActions'
 import { SocialLogin, SignupForm } from '../Components'
-import { loginStyles, signupStyles } from '../styles';
+import { loginStyles, signupStyles } from '../styles'
 
 const logo = require('../assets/logo.png')
 
 const Signup = (props) => {
   const { navigation } = props
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   return (
     <SafeAreaView style={loginStyles.setFlex}>
       <ScrollView style={loginStyles.setFlex}>
@@ -32,9 +24,9 @@ const Signup = (props) => {
         </View>
         <View style={loginStyles.loginView}>
           <Text style={signupStyles.baseText}>
-            You must be at least 18 years old to sign up for LivDivine. &nbsp;
+            You must be at least 18 years old to sign up for LivDivine. &nbsp
           <Text>By signing up you agree to the</Text>
-            <Text style={signupStyles.innerText}> Privacy Policy&nbsp;</Text>
+            <Text style={signupStyles.innerText}> Privacy Policy&nbsp</Text>
             <Text>and</Text>
             <Text style={signupStyles.innerText}> Terms of</Text>
             <Text style={signupStyles.service}> Service</Text>
@@ -45,7 +37,7 @@ const Signup = (props) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup
