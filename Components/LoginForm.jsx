@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, Alert } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
+import React, { useState } from 'react'
+import { View, TouchableOpacity, Text, Alert } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginUser, removeUser } from '../Redux/actions/authActions'
 import { Icon, Input, Button } from 'react-native-elements'
 import client from '../Config/apollo'
 import { loginStyles } from '../styles'
-import Spinner from 'react-native-loading-spinner-overlay';
+import Spinner from 'react-native-loading-spinner-overlay'
 import { LOGIN } from '../utils/authQueries'
 
 const LoginForm = (props) => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const [state, setState] = useState({
         email: '',
         password: '',
@@ -20,7 +20,7 @@ const LoginForm = (props) => {
 
     const validateLogin = () => {
         const { email, password } = state
-        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
         if (reg.test(email) === false) {
             return updateField({ emailErr: 'Invalid Email!' })
         }
@@ -57,7 +57,7 @@ const LoginForm = (props) => {
                 textStyle={loginStyles.spinnerTextStyle}
             />
             <Input
-                placeholder="Email"
+                placeholder='Email'
                 inputContainerStyle={{ ...loginStyles.inputLogin, borderColor: state.emailErr ? 'red' : '#000000' }}
                 onChangeText={e => updateField({ email: e })}
                 value={state.email}
@@ -73,7 +73,7 @@ const LoginForm = (props) => {
                 }
             />
             <Input
-                placeholder="Password"
+                placeholder='Password'
                 secureTextEntry={true}
                 inputContainerStyle={{ ...loginStyles.inputLogin, borderColor: state.passwordErr ? 'red' : '#000000' }}
                 onChangeText={e => updateField({ password: e })}
@@ -90,7 +90,7 @@ const LoginForm = (props) => {
                 }
             />
             <Button
-                title="Login"
+                title='Login'
                 buttonStyle={loginStyles.loginBtn}
                 onPress={validateLogin}
             />
@@ -98,8 +98,8 @@ const LoginForm = (props) => {
                 <Text style={loginStyles.forgotPas}>I forgot my Password</Text>
             </TouchableOpacity>
         </View>
-    );
-};
+    )
+}
 
 
-export default LoginForm;
+export default LoginForm

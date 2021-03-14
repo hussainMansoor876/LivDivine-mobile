@@ -81,7 +81,7 @@ const orderTypes = [
     },
     {
         orderTypeName: 'Live chat',
-        subTitle: 'Live caht reading - right now',
+        subTitle: 'Live chat reading - right now',
         price: '$0.99/min',
         orderPrice: '$0.99/min',
         isActive: false
@@ -117,7 +117,7 @@ const orderTypesCopy = [
     },
     {
         orderTypeName: 'Live chat',
-        subTitle: 'Live caht reading - right now',
+        subTitle: 'Live chat reading - right now',
         price: 0.99,
         isActive: false
     },

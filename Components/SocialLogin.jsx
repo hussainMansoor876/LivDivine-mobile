@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { View, Alert, Text } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUser, removeUser } from '../Redux/actions/authActions';
+import React, { useEffect, useState } from 'react'
+import { View, Alert } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginUser } from '../Redux/actions/authActions'
 import { SocialIcon } from 'react-native-elements'
 import { loginStyles } from '../styles'
-import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
-import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
+import { GoogleSignin } from '@react-native-community/google-signin'
+import Spinner from 'react-native-loading-spinner-overlay'
 import client from '../Config/apollo'
 import { SOCIAL_LOGIN } from '../utils/authQueries'
 
-GoogleSignin.configure();
+GoogleSignin.configure()
 
-
-const user1 = { name: 'Mansoor Hussain' };
+const user1 = { name: 'Mansoor Hussain' }
 
 const SocialLogin = (props) => {
-    const user = useSelector(state => state.authReducer.user);
-    const dispatch = useDispatch();
+    const user = useSelector(state => state.authReducer.user)
+    const dispatch = useDispatch()
     const [state, setState] = useState({
         isLoading: false
     })
@@ -27,7 +26,7 @@ const SocialLogin = (props) => {
             LoginManager.logOut()
             GoogleSignin.signOut()
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
     }, [])
 
@@ -44,7 +43,7 @@ const SocialLogin = (props) => {
                 updateField({ isLoading: true })
                 if (result.isCancelled) {
                     updateField({ isLoading: false })
-                    console.log("Login cancelled");
+                    console.log('Login cancelled')
                 }
                 else {
                     AccessToken.getCurrentAccessToken()
@@ -52,7 +51,7 @@ const SocialLogin = (props) => {
                             const get_Response_Info = (error, result) => {
                                 if (error) {
                                     updateField({ isLoading: false })
-                                    console.log('Error fetching data: ' + error.toString());
+                                    console.log('Error fetching data: ' + error.toString())
                                 } else {
                                     console.log('result', JSON.stringify(result))
                                     updateField({ isLoading: true })
@@ -76,13 +75,13 @@ const SocialLogin = (props) => {
                                             Alert.alert('Oops Something went Wrong!')
                                         })
                                 }
-                            };
+                            }
                             const processRequest = new GraphRequest(
                                 '/me?fields=name,email,picture.type(large)',
                                 null,
                                 get_Response_Info
-                            );
-                            new GraphRequestManager().addRequest(processRequest).start();
+                            )
+                            new GraphRequestManager().addRequest(processRequest).start()
                         })
                 }
             }
@@ -120,10 +119,11 @@ const SocialLogin = (props) => {
                     })
             })
             .catch((e) => {
+                console.log('e', e.message)
                 updateField({ isLoading: false })
-                Alert.alert('Oops Something went Wrong!')
+                Alert.alert(e.message)
             })
-    };
+    }
 
 
     return (
@@ -134,12 +134,12 @@ const SocialLogin = (props) => {
                 textStyle={loginStyles.spinnerTextStyle}
             />
             <View style={loginStyles.social}>
-                <SocialIcon style={loginStyles.socialBtn} onPress={facebookLogin} title="Facebook" button type="facebook" />
-                <SocialIcon style={loginStyles.socialBtn} title="Google" onPress={signIn} button type="google" />
+                <SocialIcon style={loginStyles.socialBtn} onPress={facebookLogin} title='Facebook' button type='facebook' />
+                <SocialIcon style={loginStyles.socialBtn} title='Google' onPress={signIn} button type='google' />
             </View>
         </View>
-    );
-};
+    )
+}
 
 
-export default SocialLogin;
+export default SocialLogin
