@@ -139,22 +139,22 @@ const Home = (props) => {
                 />
                 <Text style={{ color: '#fff', fontSize: 20, marginLeft: -10, alignSelf: 'center' }}>Home</Text>
                 <FontAwesomeIcon
-                    name="filter"
+                    name='filter'
                     size={30}
-                    color="#fff"
+                    color='#fff'
                     onPress={toggleModal}
                 />
             </View>
             <SearchBar
-                placeholder="Search Advisors"
+                placeholder='Search Advisors'
                 value={state.searchValue}
                 onChangeText={(e) => setState({ ...state, searchValue: e })}
-                // placeholderTextColor="#fff"
+                // placeholderTextColor='#fff'
                 lightTheme
                 inputStyle={{ backgroundColor: '#fff' }}
                 onSubmitEditing={updateSearch}
                 round
-                color="#000000"
+                color='#000000'
                 onClear={getAll}
                 containerStyle={{ backgroundColor: appColor }}
                 inputContainerStyle={{ backgroundColor: '#fff' }}
@@ -206,7 +206,7 @@ const Home = (props) => {
                             onPress={toggleModal}
                         >
                             <Icon
-                                name="close"
+                                name='close'
                                 size={30}
                             />
                         </TouchableOpacity>

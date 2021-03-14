@@ -1,25 +1,23 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { SafeAreaView } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { removeUser } from '../Redux/actions/authActions'
-import { loginStyles } from '../styles'
+import { useSelector } from 'react-redux'
+import { loginStyles } from '../../styles'
+import { Header } from '../../Components'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 
-const Chat = (props) => {
+const LiveChat = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user)
-    const dispatch = useDispatch()
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
-        dispatch(removeUser())
         var obj = {
             _id: 1,
             text: 'Hello developer',
             createdAt: new Date(),
             user: {
                 _id: 2,
-                name: 'React Native',
+                name: 'React',
                 avatar: 'https://placeimg.com/140/140/any'
             }
         }
@@ -54,19 +52,25 @@ const Chat = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
+            <Header
+                title={user?.userName}
+                {...props}
+            />
             <GiftedChat
                 messages={messages}
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: 1,
-                    avatar: 'https://placeimg.com/140/140/any'
+                    avatar: user?.image || null,
+                    name: 'Mansoor'
                 }}
+                renderBubble={renderBubble}
                 showAvatarForEveryMessage
                 showUserAvatar
-                renderBubble={renderBubble}
+                renderUsernameOnMessage
             />
         </SafeAreaView>
     )
 }
 
-export default Chat
+export default LiveChat

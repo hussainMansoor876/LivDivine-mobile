@@ -10,7 +10,7 @@ import { loginStyles, settingsStyles } from '../../styles'
 
 const Settings = (props) => {
     const user = useSelector(state => state.authReducer.user);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     return (
         <SafeAreaView style={loginStyles.setFlex}>
             <Header {...props} title="Settings" />
