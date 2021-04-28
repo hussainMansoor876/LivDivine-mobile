@@ -11,6 +11,7 @@ import AdvisorProfile from './AdvisorProfile/AdvisorProfile'
 import AdvisorSettings from './AdvisorSettings/AdvisorSettings'
 import MyProfile from './MyProfile/MyProfile'
 import LiveChat from './LiveChat/LiveChat'
+import MyJobs from './MyJobs/MyJobs'
 
 export {
     Login,
@@ -25,5 +26,6 @@ export {
     AdvisorProfile,
     AdvisorSettings,
     MyProfile,
-    LiveChat
+    LiveChat,
+    MyJobs
 }

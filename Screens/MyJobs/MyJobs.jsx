@@ -13,9 +13,9 @@ import client from '../../Config/apollo'
 import { GET_ALL_ADVISORS, APPLY_FILTER } from '../../utils/getQueries'
 import { GET_USER } from '../../utils/authQueries'
 import { getFilterData } from '../../utils/helpers'
-import { AdvisorProfile } from '../../Screens'
+import { AdvisorProfile } from '..'
 
-const Home = (props) => {
+const MyJobs = (props) => {
     const { navigation } = props
     const user = useSelector(state => state.authReducer.user)
     const dispatch = useDispatch()
@@ -243,4 +243,4 @@ const Home = (props) => {
     )
 }
 
-export default Home
+export default MyJobs
