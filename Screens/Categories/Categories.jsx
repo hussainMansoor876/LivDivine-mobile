@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import { loginStyles, categoriesStyles } from '../../styles'
 import { Header } from '../../Components'
 import categoriesData from '../../utils/categoriesData'
 import CategoriesFilter from './CategoriesFilter'
 
 const Categories = (props) => {
-    const user = useSelector(state => state.authReducer.user);
-    const dispatch = useDispatch();
+    const user = useSelector(state => state.authReducer.user)
+    const dispatch = useDispatch()
     const [state, setState] = useState({
         searchValue: '',
         allAdvisors: [],
@@ -29,7 +29,7 @@ const Categories = (props) => {
         <SafeAreaView style={loginStyles.setFlex}>
             {state.showFilter ? <CategoriesFilter {...props} hideFilter={() => updateField({ showFilter: false })} category={state.category} /> :
                 <View style={loginStyles.setFlex}>
-                    <Header {...props} title="Categories" />
+                    <Header {...props} title='Categories' />
                     <ScrollView style={loginStyles.setFlex}>
                         {categoriesData.map((v, i) => {
                             return (
@@ -47,7 +47,7 @@ const Categories = (props) => {
                     </ScrollView>
                 </View>}
         </SafeAreaView>
-    );
-};
+    )
+}
 
-export default Categories;
+export default Categories
