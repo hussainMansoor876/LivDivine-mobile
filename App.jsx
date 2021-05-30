@@ -20,8 +20,8 @@ const App = () => {
     <Provider store={store} >
       <PersistGate persistor={persistor}>
         <ApolloProvider client={client}>
-          {/* <AppNavigator /> */}
-          <MyJobs />
+          <AppNavigator />
+          {/* <MyJobs />   */}
         </ApolloProvider>
       </PersistGate>
     </Provider>
