@@ -14,7 +14,7 @@ const MyJobs = (props) => {
 
     return (
         <SafeAreaView style={loginStyles.setFlex}>
-            <Header {...props} title='My Jobs' />
+            {/* <Header {...props} title='My Jobs' /> */}
             <JobsList />
         </SafeAreaView>
     )
